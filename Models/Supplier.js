@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const supplier = new Schema({
-    title: {
+    name: {
         type: String,
         required:true
     },
-    published:{
-        type:Date,
-        default: Date.now
+    address:{
+        type:String,
+        required:true
     }
 });
 
