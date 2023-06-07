@@ -1,45 +1,51 @@
-const Article = require('../models/article')
+const Product = require('../Models/Product');
 
-const createArticle = async (title,published) => {
-    const article = new Article(
+
+const createProduct = async (name,category,price,description,supplier) => {
+    const Product = new Product(
         {
-        title:title
+       name:name,
+       category:category,
+       price:price,
+       description:description,
+       supplier:supplier
         });
-    if (published)
-        article.published = published;
     
-    return await article.save()
+    return await Product.save()
 }
 
-const getArticleById = async(id) =>{
-    return await Article.findById(id)
+const getProductByName = async(name) =>{
+    return await Product.findByName(name)
 }
 
-const getArticles = async() =>{
-    return await Article.find({})
+const getProducts = async() =>{
+    return await Product.find({})
 }
 
-const updateArticle = async (id, title) => {
-    const article = await getArticleById(id);
-    if (!article)
+const updateProduct = async (name,category,price,description,supplier) => {
+    const Product = await getProductByName(name);
+    if (!Product)
         return null;
-    article.title = title;
-    await article.save();
-    return article;
+    Product.category=category
+    Product.price=price
+    Product.description=description
+    Product.supplier=supplier
+    await Product.save();
+    return Product;
 }
 
-const deleteArticle = async (id) => {
-    const article = await getArticleById(id);
-    if (!article)
+const deleteProduct = async (name) => {
+    const Product = await getProductByName(name);
+    if (!Product)
         return null;
-    await article.deleteOne();
-    return article;
+    await Product.deleteOne();
+    return Product;
 }
 
 module.exports = {
-    createArticle,
-    getArticleById,
-    getArticles,
-    updateArticle,
-    deleteArticle
+    createProduct,
+    getProductByName,
+    getProducts,
+    updateProduct,
+    deleteProduct
 }
