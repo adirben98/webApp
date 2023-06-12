@@ -6,25 +6,12 @@ const Schema = mongoose.Schema;
 
 
 const product = new Schema({
-    productid:  {
-       type: String, 
-       required:true,
-       unique:true 
-    },
-    name: { 
+    name: {
         type: String,
         required:true
     },
     category:{
-        enum:['chicken eggs','duck eggs','ostrich egg'],
-        required:true
-    },
-    size: {
-        enum:['small','medium','large'],
-        required:true
-    },
-    traysize: {
-        enum:['4','12','18','30'],
+        enum:['red','white','rose'],
         required:true
     },
     price:{
@@ -39,6 +26,7 @@ const product = new Schema({
         type:Supplier,
         required:true 
     }
+
 });
 
 

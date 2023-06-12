@@ -1,51 +1,45 @@
-const Branch = require('../Models/Branch')
+const Article = require('../models/article')
 
-const createBranch = async (_id,name,address,Xcoordinate,Ycoordinate) => {
-    const branch = new Branch(
+const createArticle = async (title,published) => {
+    const article = new Article(
         {
-        _id:_id,
-         name:name,
-         address:address,
-         Xcoordinate:Xcoordinate,
-         Ycoordinate:Ycoordinate
+        title:title
         });
-   
+    if (published)
+        article.published = published;
     
-    return await branch.save()
+    return await article.save()
 }
 
-const getBranchById = async(_id) =>{
-    return await Branch.findOne(_id,_id)
+const getArticleById = async(id) =>{
+    return await Article.findById(id)
 }
 
-const getBranches = async() =>{
-    return await Branch.find({})
+const getArticles = async() =>{
+    return await Article.find({})
 }
 
-const updateBranch = async (_id,name,address,Xcoordinate,Ycoordinate) => {
-    const branch = await getBranchById(_id);
-    if (!branch)
+const updateArticle = async (id, title) => {
+    const article = await getArticleById(id);
+    if (!article)
         return null;
-    branch.name=name
-    branch.address=address
-    branch.Xcoordinate=Xcoordinate
-    branch.Ycoordinate=Ycoordinate
-    await branch.save();
-    return branch;
+    article.title = title;
+    await article.save();
+    return article;
 }
 
-const deleteBranch = async (name) => {
-    const branch = await getBranchById(_id);
-    if (!branch)
+const deleteArticle = async (id) => {
+    const article = await getArticleById(id);
+    if (!article)
         return null;
-    await branch.deleteOne();
-    return branch;
+    await article.deleteOne();
+    return article;
 }
 
 module.exports = {
-    createBranch,
-    getBranchById,
-    getBranches,
-    updateBranch,
-    deleteBranch
+    createArticle,
+    getArticleById,
+    getArticles,
+    updateArticle,
+    deleteArticle
 }
