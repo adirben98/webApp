@@ -1,0 +1,55 @@
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+    header {
+      background-color: #f8f8f8;
+      padding: 20px;
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header .title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    header .search-box {
+      display: flex;
+      align-items: center;
+    }
+    header .search-box input {
+      margin-right: 10px;
+    }
+    main {
+      padding: 40px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+   
+    .egg-card {
+      display: inline-block;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px;
+    }
+    .egg-card img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .egg-card h3 {
+      margin: 10px 0;
+    }
+    footer {
+      background-color: #f8f8f8;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+    }
+  
