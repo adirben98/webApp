@@ -1,50 +1,56 @@
 const Product = require('../Models/Product');
 
 
-const createProduct = async (name,category,price,description,supplier) => {
-    const Product = new Product(
+const createProduct = async (productid,name,category,size,traysize,price,description,supplier) => {
+    const product = new Product(
         {
+       productid:productid,     
        name:name,
        category:category,
+       size:size,
+       traysize:traysize,
        price:price,
        description:description,
        supplier:supplier
         });
     
-    return await Product.save()
+    return await product.save()
 }
 
-const getProductByName = async(name) =>{
-    return await Product.findByName(name)
+const getProductByID = async(productid) =>{
+    return await Product.findOne(productid)
 }
 
 const getProducts = async() =>{
     return await Product.find({})
 }
 
-const updateProduct = async (name,category,price,description,supplier) => {
-    const Product = await getProductByName(name);
-    if (!Product)
+const updateProduct = async (productid,name,category,size,traysize,price,description,supplier) => {
+    const product = await getProductByID(productid);
+    if (!product)
         return null;
-    Product.category=category
-    Product.price=price
-    Product.description=description
-    Product.supplier=supplier
-    await Product.save();
-    return Product;
+    product.name=name    
+    product.category=category
+    product.size=size
+    product.traysize=traysize
+    product.price=price
+    product.description=description
+    product.supplier=supplier
+    await product.save();
+    return product;
 }
 
-const deleteProduct = async (name) => {
-    const Product = await getProductByName(name);
-    if (!Product)
+const deleteProduct = async (productid) => {
+    const product = await getProductByID(productid);
+    if (!product)
         return null;
-    await Product.deleteOne();
-    return Product;
+    await product.deleteOne();
+    return product;
 }
 
 module.exports = {
     createProduct,
-    getProductByName,
+    getProductByID,
     getProducts,
     updateProduct,
     deleteProduct
