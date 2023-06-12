@@ -6,7 +6,7 @@ const Product = require('./Product');
 
 
 const order = new Schema({
-    orderId: {
+    Id: {
         type: String,
         required:true
     },

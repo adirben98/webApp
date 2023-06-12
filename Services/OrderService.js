@@ -1,45 +1,42 @@
-const Article = require('../models/article')
+const Order = require('../Models/Order')
 
-const createArticle = async (title,published) => {
-    const article = new Article(
+const createOrder = async (id,user,products,quantity,totalPrice,date) => {
+    const order = new Order(
         {
-        title:title
+        id:id,
+        user:user,
+        products:products,
+        quantity:quantity,
+        totalPrice:totalPrice,
+        
         });
-    if (published)
-        article.published = published;
+    if (date)
+        order.createdAt = date;
     
-    return await article.save()
+    return await order.save()
 }
 
-const getArticleById = async(id) =>{
-    return await Article.findById(id)
+const getOrderById = async(id) =>{
+    return await Order.findById(id)
 }
 
-const getArticles = async() =>{
-    return await Article.find({})
+const getOrders = async() =>{
+    return await Order.find({})
 }
 
-const updateArticle = async (id, title) => {
-    const article = await getArticleById(id);
-    if (!article)
+
+
+const deleteOrder = async (id) => {
+    const order = await getOrderById(id);
+    if (!order)
         return null;
-    article.title = title;
-    await article.save();
-    return article;
-}
-
-const deleteArticle = async (id) => {
-    const article = await getArticleById(id);
-    if (!article)
-        return null;
-    await article.deleteOne();
-    return article;
+    await order.deleteOne();
+    return order;
 }
 
 module.exports = {
-    createArticle,
-    getArticleById,
-    getArticles,
-    updateArticle,
-    deleteArticle
+    createOrder,
+    getOrderById,
+    getOrders,
+    deleteOrder
 }

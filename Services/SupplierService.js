@@ -1,45 +1,46 @@
-const Article = require('../models/article')
+const Supplier = require('../Models/Supplier');
 
-const createArticle = async (title,published) => {
-    const article = new Article(
+const createSupplier = async (name,address) => {
+    const supplier = new Supplier(
         {
-        title:title
+        name:name,
+        address:address
         });
-    if (published)
-        article.published = published;
     
-    return await article.save()
+    
+    return await supplier.save()
 }
 
-const getArticleById = async(id) =>{
-    return await Article.findById(id)
+const getSupplierByName = async(name) =>{
+    return await Supplier.findByname(name)
 }
 
-const getArticles = async() =>{
-    return await Article.find({})
+const getSuppliers = async() =>{
+    return await Supplier.find({})
 }
 
-const updateArticle = async (id, title) => {
-    const article = await getArticleById(id);
-    if (!article)
+const updateSupplier = async (name,address) => {
+    const supplier = await getSupplierByName(name);
+    if (!supplier)
         return null;
-    article.title = title;
-    await article.save();
-    return article;
+    supplier.name = name;
+    supplier.address=address
+    await supplier.save();
+    return supplier;
 }
 
-const deleteArticle = async (id) => {
-    const article = await getArticleById(id);
-    if (!article)
+const deleteSupplier = async (name) => {
+    const supplier = await getSupplierByName(name);
+    if (!supplier)
         return null;
-    await article.deleteOne();
-    return article;
+    await supplier.deleteOne();
+    return supplier;
 }
 
 module.exports = {
-    createArticle,
-    getArticleById,
-    getArticles,
-    updateArticle,
-    deleteArticle
+    createSupplier,
+    getSupplierByName,
+    getSuppliers,
+    updateSupplier,
+    deleteSupplier
 }

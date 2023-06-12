@@ -1,45 +1,57 @@
-const Article = require('../models/article')
+const Product = require('../Models/Product');
 
-const createArticle = async (title,published) => {
-    const article = new Article(
+
+const createProduct = async (productid,name,category,size,traysize,price,description,supplier) => {
+    const product = new Product(
         {
-        title:title
+       productid:productid,     
+       name:name,
+       category:category,
+       size:size,
+       traysize:traysize,
+       price:price,
+       description:description,
+       supplier:supplier
         });
-    if (published)
-        article.published = published;
     
-    return await article.save()
+    return await product.save()
 }
 
-const getArticleById = async(id) =>{
-    return await Article.findById(id)
+const getProductByID = async(productid) =>{
+    return await Product.findOne(productid)
 }
 
-const getArticles = async() =>{
-    return await Article.find({})
+const getProducts = async() =>{
+    return await Product.find({})
 }
 
-const updateArticle = async (id, title) => {
-    const article = await getArticleById(id);
-    if (!article)
+const updateProduct = async (productid,name,category,size,traysize,price,description,supplier) => {
+    const product = await getProductByID(productid);
+    if (!product)
         return null;
-    article.title = title;
-    await article.save();
-    return article;
+    product.name=name    
+    product.category=category
+    product.size=size
+    product.traysize=traysize
+    product.price=price
+    product.description=description
+    product.supplier=supplier
+    await product.save();
+    return product;
 }
 
-const deleteArticle = async (id) => {
-    const article = await getArticleById(id);
-    if (!article)
+const deleteProduct = async (productid) => {
+    const product = await getProductByID(productid);
+    if (!product)
         return null;
-    await article.deleteOne();
-    return article;
+    await product.deleteOne();
+    return product;
 }
 
 module.exports = {
-    createArticle,
-    getArticleById,
-    getArticles,
-    updateArticle,
-    deleteArticle
+    createProduct,
+    getProductByID,
+    getProducts,
+    updateProduct,
+    deleteProduct
 }

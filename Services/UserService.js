@@ -1,45 +1,53 @@
-const Article = require('../models/article')
+const User = require('../Models/User');
 
-const createUser = async (title,published) => {
-    const article = new Article(
+
+const createUser = async (firstName,lastName,email,password,userType) => {
+    const user = new User(
         {
-        title:title
+        firstName:firstName,
+        lastName:lastName,
+        email:email,
+        password:password
+
         });
-    if (published)
-        article.published = published;
+    if (userType)
+        user.userType=userType
     
-    return await article.save()
+    return await user.save()
 }
 
-const getArticleById = async(id) =>{
-    return await Article.findById(id)
+const getUserByEmail = async(email) =>{
+    return await User.findOne({email:email})
 }
 
-const getArticles = async() =>{
-    return await Article.find({})
+const getUsers = async() =>{
+    return await User.find({})
 }
 
-const updateArticle = async (id, title) => {
-    const article = await getArticleById(id);
-    if (!article)
+const updateUser = async ( firstName,lastName,email,password) => {
+    const user = await getUserByEmail(email);
+    if (!user)
         return null;
-    article.title = title;
-    await article.save();
-    return article;
+        user.firstName=firstName,
+        user.lastName=lastName,
+        user.email=email,
+        user.password=password
+    await user.save();
+    return user;
 }
 
-const deleteArticle = async (id) => {
-    const article = await getArticleById(id);
-    if (!article)
+const deleteUser = async (email) => {
+    const user = await getUserByEmail(email);
+    if (!user)
         return null;
-    await article.deleteOne();
-    return article;
+    await user.deleteOne();
+    return user;
 }
 
 module.exports = {
-    createArticle,
-    getArticleById,
-    getArticles,
-    updateArticle,
-    deleteArticle
+    createUser,
+    getUserByEmail,
+    getUsers,
+    updateUser,
+    deleteUser
 }
