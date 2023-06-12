@@ -16,7 +16,7 @@ const product = new Schema({
         required:true
     },
     category:{
-        enum:['chicken eggs','duck eggs','ostrich egg','quail egg'],
+        enum:['chicken eggs','duck eggs','ostrich eggs','quail eggs','special eggs'],
         required:true
     },
     size: {
