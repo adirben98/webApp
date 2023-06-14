@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Eggsclusive - Contact Us</title>
+  <title>Eggsclusive - Home</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="../../CSS/home.css">
-
+  
 </head>
 <body>
   <header>
@@ -39,46 +39,55 @@
       <li class="nav-item">
         <a class="nav-link" href="about">About</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/contact">Contact</a>
       </li>
     </ul>
   </nav>
 </header>
 
-  <main>
-    <div class="container">
-      <h2>Contact Us</h2>
-      <p>Have a question or need assistance? Reach out to us using the contact information below or fill out the form and we'll get back to you as soon as possible.</p>
-
-      <div class="row">
-        <div class="col-md-6">
-          <h3>Contact Information</h3>
-          <p><strong>Address:</strong> 123 Main Street, City, Country</p>
-          <p><strong>Email:</strong> info@Eggsclusive.com</p>
-          <p><strong>Phone:</strong> +1 123-456-7890</p>
+ <main>
+        <div class="container">
+          <h2>My Account</h2>
+          <div class="account-section">
+            <h3>User Information</h3>
+            <p>Name: <%= user.name %></p>
+            <p>Email: <%= user.email %></p>
+            <p>Address: <%= user.address %></p>
+            <p>Phone: <%= user.phone %></p>
+          </div>
+          <div class="account-section">
+            <h3>Order History</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Date</th>
+                  <th>Total Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% orders.forEach(function(order) { %>
+                  <tr>
+                    <td><%= order.orderId %></td>
+                    <td><%= order.date %></td>
+                    <td><%= order.totalAmount %></td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+          <div class="account-section">
+            <h3>Log-In</h3>
+            <a href="/login" class="btn btn-warning">Log-In</a>
+          </div>   
+          <div class="account-section">
+            <h3>Change Password</h3>
+            <a href="/changepass" class="btn btn-warning">Change Password</a>
+          </div>          
         </div>
-        <div class="col-md-6">
-          <h3>Contact Form</h3>
-          <form>
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" required>
-            </div>
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea class="form-control" id="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Send Message</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </main>
+ </main>
+      
 
   <footer>
     <div class="container">
