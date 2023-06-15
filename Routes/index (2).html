@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Eggsclusive - About Us</title>
+  <title>Eggsclusive - Home</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="../../CSS/home.css">
-
+  
 </head>
 <body>
   <header>
@@ -13,7 +13,9 @@
         <div class="title">Eggsclusive</div>
         <div class="d-flex align-items-center">
           <div class="search-box">
-            <input type="text" class="form-control" placeholder="Search eggs...">
+            <!-- <input type="text" class="form-control" placeholder="Search eggs..."> -->
+            <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+            <ul id="dropdownList" class="list-group mt-2"></ul>
             <button class="btn btn-warning" type="button">Search</button>
           </div>
           <div class="nav-item ml-3">
@@ -30,13 +32,13 @@
       </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="../Home/index.html">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../Product/allProducts.html">Products</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="../Home/aboutUs.html">About</a>
         </li>
         <li class="nav-item">
@@ -48,9 +50,8 @@
 
   <main>
     <div class="container">
-      <h2>About Us</h2>
-      <p>We sell the best eggs from all kinds and sizes!</p>
-      <p></p>
+      <h2>Welcome to Eggsclusive!</h2>
+      <p>Discover a wide range of eggs from various breeds.</p>
     </div>
   </main>
 
@@ -61,5 +62,47 @@
   </footer>
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>$(document).ready(function() {
+    var searchInput = $('#searchInput');
+    var dropdownList = $('#dropdownList');
+  
+    // Handler for search input keyup event
+    searchInput.keyup(function() {
+      var searchText = searchInput.val().toLowerCase();
+  
+      // Clear previous results
+      dropdownList.empty();
+  
+      // Perform search
+      if (searchText.length >= 2) {
+        $.ajax({
+          url: '/search',
+          type: 'POST',
+          data: { searchText: searchText },
+          success: function(data) {
+            // Display search results in the dropdown list
+            data.forEach(function(item) {
+              var listItem = '<li>' + item.name + '</li>';
+              dropdownList.append(listItem);
+            });
+            dropdownList.show();
+          },
+          error: function(error) {
+            console.error(error);
+          }
+        });
+      } else {
+        dropdownList.hide();
+      }
+    });
+  
+    // Handler for selecting an item from the dropdown list
+    dropdownList.on('click', 'li', function() {
+      var selectedItem = $(this).text();
+      searchInput.val(selectedItem);
+      dropdownList.hide();
+    });
+  });
+  </script>
 </body>
 </html>
