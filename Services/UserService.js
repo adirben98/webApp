@@ -1,7 +1,7 @@
 const User = require('../Models/User');
 
 
-const createUser = async (firstName,lastName,email,password,userType) => {
+async function createUser(firstName,lastName,email,password,userType){
     const user = new User(
         {
         firstName:firstName,

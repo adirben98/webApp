@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Eggsclusive - Home</title>
+  <title>Eggsclusive</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="/CSS">
@@ -10,7 +10,9 @@
 <body>
   <header>
     <div class="container d-flex justify-content-between align-items-center">
-      <div class="title">Eggsclusive</div>
+      <div>
+        <a href="/" class="title">Eggsclusive</a>
+      </div>
       <div class="d-flex align-items-center">
         <div class="search-box">
           <input type="text" class="form-control" placeholder="Search eggs...">
@@ -31,13 +33,13 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class="navbar-nav mx-auto">
       <li class="nav-item">
-        <a class="nav-link"  href="/home">Home</a>
+        <a class="nav-link"  href="/">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/products">Products</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="about">About</a>
+        <a class="nav-link" href="/about">About</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/contact">Contact</a>
@@ -46,47 +48,36 @@
   </nav>
 </header>
 
- <main>
-        <div class="container">
-          <h2>My Account</h2>
-          <div class="account-section">
-            <h3>User Information</h3>
-            <p>Name: <%= user.name %></p>
-            <p>Email: <%= user.email %></p>
-            <p>Address: <%= user.address %></p>
-            <p>Phone: <%= user.phone %></p>
-          </div>
-          <div class="account-section">
-            <h3>Order History</h3>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Date</th>
-                  <th>Total Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% orders.forEach(function(order) { %>
-                  <tr>
-                    <td><%= order.orderId %></td>
-                    <td><%= order.date %></td>
-                    <td><%= order.totalAmount %></td>
-                  </tr>
-                <% }); %>
-              </tbody>
-            </table>
-          </div>
-          <div class="account-section">
-            <h3>Log-In</h3>
-            <a href="/login" class="btn btn-warning">Log-In</a>
-          </div>   
-          <div class="account-section">
-            <h3>Change Password</h3>
-            <a href="/changepass" class="btn btn-warning">Change Password</a>
-          </div>          
-        </div>
- </main>
+<main>
+  <div class="container">
+    <h2>My Account</h2>
+    <div class="account-section">
+      <h3>User Information</h3>
+      <p>Name: <span id="userName"></span></p>
+      <p>Email: <span id="userEmail"></span></p>
+      <p>Address: <span id="userAddress"></span></p>
+      <p>Phone: <span id="userPhone"></span></p>
+    </div>
+    <div class="account-section">
+      <h3>Order History</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Total Amount</th>
+          </tr>
+        </thead>
+        <tbody id="orderHistory">
+        </tbody>
+      </table>
+    </div>
+    <div class="account-section">
+      <h3>Change Password</h3>
+      <a href="/changepass" class="btn btn-warning">Change Password</a>
+    </div>          
+  </div>
+</main>
       
 
   <footer>
@@ -96,5 +87,48 @@
   </footer>
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Make AJAX requests to the server to acquire additional data
+      // and populate it in the appropriate place using JavaScript/jQuery
+      // Example AJAX request:
+      $.ajax({
+        url: '/api/user',
+        method: 'GET',
+        success: function(data) {
+          // Handle the success response and populate the user information
+          $('#userName').text(data.name);
+          $('#userEmail').text(data.email);
+          $('#userAddress').text(data.address);
+          $('#userPhone').text(data.phone);
+        },
+        error: function(err) {
+          // Handle the error case
+          console.error('Error fetching user information:', err);
+        }
+      });
+
+      $.ajax({
+        url: '/api/orders',
+        method: 'GET',
+        success: function(data) {
+          // Handle the success response and populate the order history dynamically
+          const orderHistory = $('#orderHistory');
+          data.forEach(function(order) {
+            const row = $('<tr></tr>');
+            row.append('<td>' + order.orderId + '</td>');
+            row.append('<td>' + order.date + '</td>');
+            row.append('<td>' + order.totalAmount + '</td>');
+            orderHistory.append(row);
+          });
+        },
+        error: function(err) {
+          // Handle the error case
+          console.error('Error fetching order history:', err);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
