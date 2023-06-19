@@ -70,6 +70,10 @@ router.get('/chicken' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/chicken.jpg"))
 })
 
+router.get('/freshly-laid-chicken-eggs' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Home/freshly-laid-chicken-eggs.jpg"))
+})
+
 router.route('/search').get(function(req,res)  {res.sendFile(path.join(__dirname,"../Controllers/searchBar.js"))}).post(Product.search)
 
 router.route('/admin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/User/Admin.html"))})
