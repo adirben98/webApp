@@ -58,6 +58,18 @@ router.route('/signup' ).get( function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/SignupForm.html"))
 }).post(login.register)
 
+router.get('/egg_nutrition' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Home/egg_nutrition.jpg"))
+})
+
+router.get('/alleggs' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Home/alleggs.jpg"))
+})
+
+router.get('/chicken' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Home/chicken.jpg"))
+})
+
 router.route('/search').get(function(req,res)  {res.sendFile(path.join(__dirname,"../Controllers/searchBar.js"))}).post(Product.search)
 
 router.route('/admin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/User/Admin.html"))})
