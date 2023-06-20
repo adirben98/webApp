@@ -48,10 +48,23 @@ const deleteProduct = async (productid) => {
     return product;
 }
 
+const search = async (query) => {
+    try {
+        console.log(query)
+      const products = await Product.find({ name: { $regex: query, $options: 'i' } }).exec();
+      return products;
+    } catch (err) {
+      console.log('Error occurred during product search:', err);
+      return -1;
+    }
+  };
+  
+
 module.exports = {
     createProduct,
     getProductByID,
     getProducts,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    search
 }
