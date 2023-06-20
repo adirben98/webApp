@@ -1,4 +1,4 @@
-const ProductService = require('../Services/ProductService')
+const ProductService = require('../Services/ProductService');
 
 const createProduct = async (req,res) => {
   const newProduct = await ProductService.createProduct(req.body.productid,req.body.name,req.body.category,req.body.size,req.body.traysize,req.body.price,req.body.description,req.body.supplier);
@@ -20,9 +20,9 @@ const getProductByID = async (req,res) => {
 }
 
 const updateProduct = async (req,res) => {
-  /*if (!req.body.title){
+  if (!req.body.title){
     res.status(400).json({message:'title is required'});
-  }*/
+  }
 
   const product = await ProductService.updateProduct(req.body.productid,req.body.name,req.body.category,req.body.size,req.body.traysize,req.body.price,req.body.description,req.body.supplier);
   if (!product){
@@ -33,11 +33,21 @@ const updateProduct = async (req,res) => {
 
 
 const deleteProduct = async (req,res) => {
-  const product = await ProductService.deleteProduct(req.params.productid);
+  const product = await ProductService.deleteProduct(req.params.id);
   if (!product){
     return res.status(404).json({errors:['Product not found']});
   }
   res.send();
+}
+const search=async(req,res)=>{
+  const searchResult= await ProductService.search(req.body.query)
+  if(searchResult===-1)
+  {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+  else{
+    res.json({ products: searchResult });
+  }
 }
 
 module.exports = {
@@ -45,6 +55,7 @@ module.exports = {
     getProductByID,
     getProducts,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    search
 
 }
