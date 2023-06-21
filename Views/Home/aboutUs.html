@@ -5,7 +5,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="/CSS">
-
 </head>
 <body>
   <header>
@@ -15,8 +14,7 @@
       </div>
       <div class="d-flex align-items-center">
         <div class="search-box">
-          <input type="text"  class="form-control" id="search-input" placeholder="Search Eggs...">
-    <div id="search-results" class="slider"></div>
+          <input type="text" class="form-control" placeholder="Search eggs...">
           <button class="btn btn-warning" type="button">Search</button>
         </div>
         <div class="nav-item ml-3">
@@ -24,43 +22,64 @@
             <i class="fas fa-shopping-cart" style="color: goldenrod;"></i>
           </a>
         </div>
-        <div class="nav-item ml-3">
-          <a class="nav-link" href="/account">
+        <div class="nav-item ml-3 dropdown">
+          <a class="nav-link" href="/account" id="accountDropdown">
             <i class="fas fa-solid fa-user" style="color: goldenrod;"></i>
           </a>
+          <div class="dropdown-content" aria-labelledby="accountDropdown">
+            <form class="px-4 py-3">
+              <div class="form-group">
+                <label for="exampleDropdownFormEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="exampleDropdownFormPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password" autocomplete="off">
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                <label class="form-check-label" for="dropdownCheck">
+                  Remember me
+                </label>
+              </div>
+              <a type="submit" href="/login" class="btn btn-primary">Log in</a>
+            </form>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/signup">New around here? Sign up</a>
+            <a class="dropdown-item" href="#">Forgot password?</a>
+          </div>
         </div>
       </div>
     </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <ul class="navbar-nav mx-auto">
-      <li class="nav-item">
-        <a class="nav-link"  href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/products">Products</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/contact">Contact</a>
-      </li>
-    </ul>
-  </nav>
-</header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link"  href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/products">Products</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
     <div class="container">
       <h2>Welcome to Our Eggcellent World!</h2>
-        <p>Discover a world of exceptional eggs at Eggsclusive. From classic chicken eggs to specialty varieties like duck, quail, and ostrich, we offer a carefully curated selection to enhance your culinary adventures.</p>
-  
-        <p>Sourced directly from local farmers who prioritize quality and sustainability, our eggs are fresh, flavorful, and responsibly produced. With a focus on customer satisfaction, our dedicated team is here to assist you and ensure a seamless shopping experience.</p>
-  
-        <p>Unlock the potential of eggs in your cooking. From savory delights to delectable desserts, our eggs elevate every dish to new heights.</p>
-<p></p>
-        <img src="/freshly-laid-chicken-eggs" alt="freshly-laid-chicken-eggs" width="300" height="200">
-  
-      </div>
+      <p>Discover a world of exceptional eggs at Eggsclusive. From classic chicken eggs to specialty varieties like duck, quail, and ostrich, we offer a carefully curated selection to enhance your culinary adventures.</p>
+
+      <p>Sourced directly from local farmers who prioritize quality and sustainability, our eggs are fresh, flavorful, and responsibly produced. With a focus on customer satisfaction, our dedicated team is here to assist you and ensure a seamless shopping experience.</p>
+
+      <p>Unlock the potential of eggs in your cooking. From savory delights to delectable desserts, our eggs elevate every dish to new heights.</p>
+
+      <img src="/freshly-laid-chicken-eggs" alt="freshly-laid-chicken-eggs" width="300" height="200">
+    </div>
   </main>
 
   <footer>
