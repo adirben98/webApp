@@ -16,7 +16,7 @@ async function createUser(firstName,lastName,email,password,userType){
     return await user.save()
 }
 
-const getUserByEmail = async(email) =>{
+const getUser = async(email) =>{
     return await User.findOne({email:email})
 }
 
@@ -25,7 +25,7 @@ const getUsers = async() =>{
 }
 
 const updateUser = async ( firstName,lastName,email,password) => {
-    const user = await getUserByEmail(email);
+    const user = await getUser(email);
     if (!user)
         return null;
         user.firstName=firstName,
@@ -37,7 +37,7 @@ const updateUser = async ( firstName,lastName,email,password) => {
 }
 
 const deleteUser = async (email) => {
-    const user = await getUserByEmail(email);
+    const user = await getUser(email);
     if (!user)
         return null;
     await user.deleteOne();
@@ -46,7 +46,7 @@ const deleteUser = async (email) => {
 
 module.exports = {
     createUser,
-    getUserByEmail,
+    getUser,
     getUsers,
     updateUser,
     deleteUser

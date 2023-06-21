@@ -21,20 +21,20 @@
       <form action="/signUp" method="post">
         <div class="form-group">
           <label for="inputFirstName">First Name</label>
-          <input type="text" class="form-control" id="inputFirstName" placeholder="Enter your first name">
+          <input name="firstName" type="text" class="form-control" id="inputFirstName" placeholder="Enter your first name">
         </div>
         <div class="form-group">
           <label for="inputLastName">Last Name</label>
-          <input type="text" class="form-control" id="inputLastName" placeholder="Enter your last name">
+          <input name="lastName" type="text" class="form-control" id="inputLastName" placeholder="Enter your last name">
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail">Email Address</label>
-            <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email address">
+            <input name="email" type="email" class="form-control" id="inputEmail" placeholder="Enter your email address">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword">Password</label>
-            <input type="password" class="form-control" id="inputPassword" placeholder="Enter your password">
+            <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Enter your password">
           </div>
         </div>
         <div class="form-group">
@@ -59,5 +59,15 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    
+    if (error) {
+      
+      alert('Invalid email');
+    }
+  </script>
 </body>
 </html>

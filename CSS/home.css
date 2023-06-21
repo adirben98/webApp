@@ -42,25 +42,13 @@ body {
       margin-bottom: 20px;
       
     }
-    .filter-section {
-      margin: 1px;
-      position: fixed;
-      left: 3%;
-      padding-right: 10px;
-      
-    }
-   
-    .form-check{
-      margin: 1px;
-      padding: 0%;
-    }
    
     .egg-card {
       width: 200px; 
       height: 310px; 
       border: 1px solid #ccc;
       padding: 10px;
-      margin: 40px;
+      margin: 10px;
       display: inline-block;
       vertical-align: top;
     }
@@ -81,6 +69,7 @@ body {
     }
     footer {
       background-color: #f8f9fa;
+
       padding: 20px 0;
       text-align: center;
       font-size: 14px;

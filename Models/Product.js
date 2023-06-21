@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Supplier = require('./Supplier');
 const Schema = mongoose.Schema;
 
 const Product = new Schema({
@@ -31,10 +30,7 @@ const Product = new Schema({
         type: String,
         required:true 
     },
-    supplier:{
-        type:String,
-        required:true 
-    },
+   
     image:{
         type:String,
         required:true

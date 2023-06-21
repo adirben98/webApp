@@ -1,18 +1,20 @@
 const ProductService = require('../Services/ProductService');
 
 const createProduct = async (req,res) => {
-  const newProduct = await ProductService.createProduct(req.body.productid,req.body.name,req.body.category,req.body.size,req.body.traysize,req.body.price,req.body.description,req.body.supplier);
-  res.json(newProduct)
+  const {
+    name,category,EggSize,traysize,price,description,image
+  } = req.body;
+  const newProduct = await ProductService.createProduct( name,category,EggSize,traysize,price,description,image)
+res.status(200).json(newProduct)
 }
-
 
 const getProducts = async (req,res) => {
   const product = await ProductService.getProducts();
   res.json(product);
 }
 
-const getProductByID = async (req,res) => {
-  const product = await ProductService.getProductByID(req.body.productid);
+const getProduct = async (req,res) => {
+  const product = await ProductService.getProduct(req.params.productName);
   if (!product){
     return res.status(404).json({errors:['Product not found']});
   }
@@ -52,7 +54,7 @@ const search=async(req,res)=>{
 
 module.exports = {
     createProduct,
-    getProductByID,
+    getProduct,
     getProducts,
     updateProduct,
     deleteProduct,

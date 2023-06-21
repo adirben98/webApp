@@ -4,6 +4,8 @@
   <title>Eggsclusive</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/CSS">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
   <style>
     body {
@@ -30,42 +32,66 @@
       font-size: 14px;
       color: #777;
     }
+    #productImage {
+  max-width: 100%;
+  height: auto;
+}
   </style>
 </head>
 <body>
   <header>
-    <div class="container">
-      <h1>Eggsclusive</h1>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/products">Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contact">Contact</a>
-          </li>
-        </ul>
-      </nav>
+    <div class="container d-flex justify-content-between align-items-center">
+      <div>
+        <a href="/" class="title">Eggsclusive</a>
+      </div>
+      <div class="search-box">
+        <input type="text"  class="form-control" id="search-input" placeholder="Search Eggs...">
+  <div id="search-results" class="slider"></div>
+        <button class="btn btn-warning" type="button">Search</button>
+      </div>
+        <div class="nav-item ml-3">
+          <a class="nav-link" href="/cart">
+            <i class="fas fa-shopping-cart" style="color: goldenrod;"></i>
+          </a>
+        </div>
+        <div class="nav-item ml-3">
+          <a class="nav-link" href="/account">
+            <i class="fas fa-solid fa-user" style="color: goldenrod;"></i>
+          </a>
+        </div>
+      </div>
     </div>
-  </header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item active">
+        <a class="nav-link"  href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/products">Products</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact">Contact</a>
+      </li>
+    </ul>
+  </nav>
+</header>
 
   <main>
     <div class="container">
-      <h2>Product Details</h2>
+      <h2 id="productName"></h2>
       <div class="row">
         <div class="col-md-6">
-          <img src="{{imageUrl}}" alt="{{productName}}">
+          <img id="productImage" alt="">
         </div>
         <div class="col-md-6">
-          <h3>{{productName}}</h3>
-          <p>{{productDescription}}</p>
-          <p>Price: ${{productPrice}}</p>
+          <p id="productCategory"></p>
+          <p id="productEggSize"></p>
+          <p id="productTraySize"></p>
+          <p id="productPrice"></p>
+          <p id="productDescription"></p>
           <button class="btn btn-primary">Add to Cart</button>
         </div>
       </div>
@@ -79,5 +105,31 @@
   </footer>
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Make AJAX request to fetch product information
+      $.ajax({
+        url: '/products/mo',
+        method: 'PUT',
+        data: { productName: 'mo' },
+        success: function(data) {
+          // Attach product information to the page
+          $('#productName').text(data.name);
+          $('#productImage').attr('src', data.image);
+          $('#productCategory').text('Category: ' + data.category);
+          $('#productEggSize').text('Egg Size: ' + data.EggSize);
+          $('#productTraySize').text('Tray Size: ' + data.traysize);
+          $('#productPrice').text('Price: $' + data.price);
+          $('#productDescription').text('Description: ' + data.description);
+        },
+        error: function() {
+          // Handle error if AJAX request fails
+          console.log('Error: Failed to fetch product information');
+        }
+      });
+    });
+  </script>
+  <script src="/search"></script>
 </body>
 </html>

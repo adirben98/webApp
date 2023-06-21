@@ -1,32 +1,32 @@
 const Product = require('../Models/Product');
 
 
-const createProduct = async (productid,name,category,size,traysize,price,description,supplier) => {
+const createProduct = async (name,category,EggSize,traysize,price,description,image) => {
     const product = new Product(
         {
-       productid:productid,     
+    
        name:name,
        category:category,
-       size:size,
+       EggSize:EggSize,
        traysize:traysize,
        price:price,
        description:description,
-       supplier:supplier
+       image:image
         });
     
     return await product.save()
 }
 
-const getProductByID = async(productid) =>{
-    return await Product.findOne(productid)
+const getProduct = async(productName) =>{
+    return await Product.findOne({name:productName})
 }
 
 const getProducts = async() =>{
     return await Product.find({})
 }
 
-const updateProduct = async (productid,name,category,size,traysize,price,description,supplier) => {
-    const product = await getProductByID(productid);
+const updateProduct = async (name,category,size,traysize,price,description,supplier) => {
+    const product = await Product.findOne(name);
     if (!product)
         return null;
     product.name=name    
@@ -62,7 +62,7 @@ const search = async (query) => {
 
 module.exports = {
     createProduct,
-    getProductByID,
+    getProduct,
     getProducts,
     updateProduct,
     deleteProduct,

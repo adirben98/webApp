@@ -8,20 +8,20 @@ const Schema = mongoose.Schema;
 const user = new Schema({
     firstName: {
         type: String,
-        // required:true
+         required:true
     },
     lastName: {
         type: String,
-        // required:true
+         required:true
     },
     email:{
         type: String,
-        // required:true,
+         required:true,
         unique:true
     },
     password:{
         type: String,
-        // required:true 
+         required:true 
     },
     orderList:{
         type: [Schema.Types.ObjectId],

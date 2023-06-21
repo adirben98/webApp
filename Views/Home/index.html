@@ -18,17 +18,30 @@
             background-size: cover;
             
       }
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 50px;
+        height: 700px;
+      } 
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        width: 100%;
+        height: 100%;
+        background-size: 100%, 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+  }
       </style>
   <header>
     <div class="container d-flex justify-content-between align-items-center">
       <div>
         <a href="/" class="title">Eggsclusive</a>
       </div>
-      <div class="d-flex align-items-center">
-        <div class="search-box">
-          <input type="text" class="form-control" placeholder="Search eggs...">
-          <button class="btn btn-warning" type="button">Search</button>
-        </div>
+      <div class="search-box">
+        <input type="text"  class="form-control" id="search-input" placeholder="Search Eggs...">
+  <div id="search-results" class="slider"></div>
+        <button class="btn btn-warning" type="button">Search</button>
+      </div>
         <div class="nav-item ml-3">
           <a class="nav-link" href="/cart">
             <i class="fas fa-shopping-cart" style="color: goldenrod;"></i>
@@ -98,22 +111,7 @@
         </div>
       </div>
     </div>
-    <style>
-      .carousel-control-prev,
-      .carousel-control-next {
-        width: 50px;
-        height: 700px;
-      } 
-      .carousel-control-prev-icon,
-      .carousel-control-next-icon {
-        width: 100%;
-        height: 100%;
-        background-size: 100%, 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-  }
   
-    </style>
     
     <div class="container">
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -136,6 +134,7 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/search"></script>
 </body>
 </html>
 

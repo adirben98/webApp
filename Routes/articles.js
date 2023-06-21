@@ -3,6 +3,7 @@ const router=express.Router()
 const path=require('path')
 const login=require('../Controllers/login')
 const Product=require('../Controllers/ProductsController')
+const User=require('../Controllers/UsersController')
 
 router.get('/' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/index.html"))
@@ -13,9 +14,14 @@ router.get('/about' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/aboutUs.html"))
 })
 
-router.get('/products' , function(req,res)  {
+router.route('/products').get(  function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Product/allProducts.html"))
+}).put(Product.getProducts)
+router.get('/products/:productName' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Product/AProduct.html"))
 })
+router.put('/products/:productName' ,Product.getProduct)
+
 
 router.get('/contact' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/contact.html"))
@@ -40,10 +46,10 @@ router.get('/Eggs4' , function(req,res)  {
 router.get('/cart' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Cart/cart.html"))
 })
-
 router.get('/account' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/account.html"))
 })
+router.get('/account/:email', User.getUser)
 
 router.get('/changepass' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/changePass.html"))
