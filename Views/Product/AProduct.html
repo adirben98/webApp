@@ -108,11 +108,13 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
-      // Make AJAX request to fetch product information
+      const urlParams = new URLSearchParams(window.location.search);
+    const productName = urlParams.get('productName');
+
       $.ajax({
-        url: '/products/mo',
+        url: '/products/'+productName,
         method: 'PUT',
-        data: { productName: 'mo' },
+        data: { productName: productName },
         success: function(data) {
           // Attach product information to the page
           $('#productName').text(data.name);

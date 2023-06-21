@@ -11,7 +11,7 @@
   <header>
     <div class="container d-flex justify-content-between align-items-center">
       <div>
-        <a href="/" class="title"><img src="/quail-egg" width="30" height="30" class="d-inline-block align-top" alt="">Eggsclusive</a>
+        <a href="/" class="title">Eggsclusive</a>
       </div>
       <div class="d-flex align-items-center">
         <div class="search-box">
@@ -23,32 +23,10 @@
             <i class="fas fa-shopping-cart" style="color: goldenrod;"></i>
           </a>
         </div>
-        <div class="nav-item ml-3 dropdown">
-          <a class="nav-link" href="/account" id="accountDropdown">
+        <div class="nav-item ml-3">
+          <a class="nav-link" href="/account">
             <i class="fas fa-solid fa-user" style="color: goldenrod;"></i>
           </a>
-          <div class="dropdown-content" aria-labelledby="accountDropdown">
-            <form class="px-4 py-3">
-              <div class="form-group">
-                <label for="exampleDropdownFormEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label for="exampleDropdownFormPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password" autocomplete="off">
-              </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                <label class="form-check-label" for="dropdownCheck">
-                  Remember me
-                </label>
-              </div>
-              <a type="submit" href="/login" class="btn btn-primary">Log in</a>
-            </form>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/signup">New around here? Sign up</a>
-            <a class="dropdown-item" href="#">Forgot password?</a>
-          </div>
         </div>
       </div>
     </div>
@@ -74,7 +52,6 @@
     <div class="container">
       <h2>Welcome to Eggsclusive!</h2>
       <p>Discover a wide range of eggs from various breeds.</p>
-      
       <div class="row">
         <div class="col-sm-3">
           <div class="filter-section">
@@ -165,47 +142,12 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-9">
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="egg-card">
-                <img src="/Eggs1" alt="Egg 1">
-                <h3>Chicken Egg</h3>
-                <p>Delicious chicken eggs from free-range farms.</p>
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-info">View Product</button>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="egg-card">
-                <img src="/Eggs2" alt="Egg 2">
-                <h3>Duck Egg</h3>
-                <p>Rich and flavorful duck eggs for your culinary delights.</p>
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-info">View Product</button>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="egg-card">
-                <img src="/Eggs3" alt="Egg 3">
-                <h3>Ostrich Egg</h3>
-                <p>Big and full with proteins, perfect for athletes.</p>
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-info">View Product</button>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="egg-card">
-                <img src="/Eggs4" alt="Egg 4">
-                <h3>Quail Egg</h3>
-                <p>Small yet packed with nutrients, perfect for appetizers.</p>
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-info">View Product</button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div id="product-list">
+        <!-- Products will be dynamically loaded here -->
       </div>
+    
+      
+     
     </div>
   </main>
 
@@ -216,5 +158,35 @@
   </footer>
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+        $(document).ready(function() {
+          // Make an AJAX request to retrieve the products
+          $.ajax({
+            url: '/products',
+            method: 'PUT',
+            success: function(Products) {
+              // Iterate through the products and update the HTML
+              Products.forEach(function(Product) {
+                var productHtml = `
+                  <div class="egg-card">
+                    <h2>${Product.name}</h2>
+                    <img src="${Product.image}" alt="${Product.name}">
+                    <p>${Product.category} eggs</p>
+                    <p>Size: ${Product.EggSize}</p>
+                    <p>Tray of-${Product.traysize}</p>
+                    <p>Price: $${Product.price}</p>
+                    <a href="/products/?productName=${Product.name}" class="btn btn-info">View Product</a>
+                  </div>
+                `;
+                $('#product-list').append(productHtml);
+              });
+            },
+            error: function() {
+              alert('Error retrieving products');
+            }
+          });
+        });
+      </script>
 </body>
 </html>
