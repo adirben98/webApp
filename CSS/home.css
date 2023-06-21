@@ -33,6 +33,11 @@ body {
     header .search-box input {
       margin-right: 10px;
     }
+    .filter-section{
+      position: fixed;
+      top: 200px;
+      left: 20px;
+    }
     main {
       padding: 40px;
       text-align: center;
@@ -48,7 +53,7 @@ body {
       height: 310px; 
       border: 1px solid #ccc;
       padding: 10px;
-      margin: 10px;
+      margin: 40px;
       display: inline-block;
       vertical-align: top;
     }
