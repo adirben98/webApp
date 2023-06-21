@@ -55,9 +55,12 @@ router.get('/changepass' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/changePass.html"))
 })
 
-router.route('/login').get(function(req,res)  {
-    res.sendFile(path.join(__dirname,"../Views/User/LoginForm.html"))
-}).post(login.login)
+router.route('/loginForm').get(function(req, res) {
+    res.sendFile(path.join(__dirname, '../Views/User/LoginForm.html'));
+  });
+
+  router.route('/login').post(login.login);
+  router.get('/logout', login.logout);
 
 router.get('/logout',login.logout)
 
