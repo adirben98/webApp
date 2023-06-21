@@ -30,6 +30,7 @@
       background-repeat: no-repeat;
     }
     
+    
   </style>
 </head>
 <body>
@@ -111,7 +112,7 @@
                 <p style="font-size: 20px;">The best eggs in the world!</p>
                 
                 <div class="video-container">
-                  <iframe width="500" height="200" src="https://www.youtube.com/embed/39qzxIGz4Ik" frameborder="0" allowfullscreen></iframe>
+                  <div id="youtube-video"></div>
                 </div>
           
               </div>
@@ -152,13 +153,34 @@
   </main>
 
   <footer>
-    <div class="container">
-      <p>&copy; 2023 Eggsclusive. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+   
+    var videoURLs = [
+      "https://www.youtube.com/embed/n_yeuDouFIk",
+      "https://www.youtube.com/embed/lj1GKO-0z3A",
+      "https://www.youtube.com/embed/39qzxIGz4Ik",
+      "https://www.youtube.com/embed/VGkwg2jxtZQ",
+      "https://www.youtube.com/embed/wl8QCFqawEc"
+    ];
 
+    
+    function getRandomVideoURL() {
+      var randomIndex = Math.floor(Math.random() * videoURLs.length);
+      return videoURLs[randomIndex];
+    }
+
+    function updateVideoSource() {
+      var videoContainer = document.getElementById("youtube-video");
+      var randomVideoURL = getRandomVideoURL();
+
+      videoContainer.innerHTML = '<iframe width="600" height="300" src="' + randomVideoURL + '" frameborder="0" allowfullscreen></iframe>';
+    }
+
+    window.onload = function() {
+      updateVideoSource();
+    };
+  </script>
 </body>
 </html>
