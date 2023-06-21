@@ -52,7 +52,8 @@ router.get('/changepass' , function(req,res)  {
 router.route('/login').get(function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/LoginForm.html"))
 }).post(login.login)
-router.post('/logout',login.logout)
+
+router.get('/logout',login.logout)
 
 router.route('/signup' ).get( function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/SignupForm.html"))
@@ -77,4 +78,15 @@ router.get('/freshly-laid-chicken-eggs' , function(req,res)  {
 router.route('/search').get(function(req,res)  {res.sendFile(path.join(__dirname,"../Controllers/searchBar.js"))}).post(Product.search)
 
 router.route('/admin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/User/Admin.html"))})
+
+router.route('/admin/createProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createProduct.html"))})
+.post(Product.createProduct)
+
+
+
+
+
+
+
+
 module.exports=router
