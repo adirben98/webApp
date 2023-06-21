@@ -15,8 +15,8 @@ const getBranches = async (req,res) => {
   res.json(branch);
 }
 
-const getBranchById = async (req,res) => {
-  const branch = await BranchService.getBranchById(req.params._id);
+const getBranch = async (req,res) => {
+  const branch = await BranchService.getBranchById(req.params.name);
   if (!branch){
     return res.status(404).json({errors:['Branch not found']});
   }
@@ -35,7 +35,6 @@ const updateBranch = async (req,res) => {
   res.json(branch);
 };
 
-
 const deleteBranch = async (req,res) => {
   const branch = await BranchService.deleteBranch(req.params.name);
   if (!branch){
@@ -46,7 +45,7 @@ const deleteBranch = async (req,res) => {
 
 module.exports = {
     createBranch,
-    getBranchById,
+    getBranch,
     getBranches,
     updateBranch,
     deleteBranch
