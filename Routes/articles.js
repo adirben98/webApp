@@ -4,6 +4,7 @@ const path=require('path')
 const login=require('../Controllers/login')
 const Product=require('../Controllers/ProductsController')
 const User=require('../Controllers/UsersController')
+const Branch=require('../Controllers/BranchsController')
 
 router.get('/' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/index.html"))
