@@ -2,22 +2,18 @@ const mongoose = require('mongoose');
 const Supplier = require('./Supplier');
 const Schema = mongoose.Schema;
 
-const product = new Schema({
-    Id:  {
-       type: String, 
-       required:true,
-       unique:true 
-    },
+const Product = new Schema({
+  
     name: { 
         type: String,
         required:true
     },
     category:{
         type: String,
-        enum:['chicken eggs','duck eggs','ostrich eggs','quail eggs','special eggs'],
+        enum:['chicken','duck','ostrich','quail','special'],
         required:true
     },
-    size: {
+    EggSize: {
         type: String,
         enum:['small','medium','large'],
         required:true
@@ -38,9 +34,14 @@ const product = new Schema({
     supplier:{
         type:String,
         required:true 
+    },
+    image:{
+        type:String,
+        required:true
     }
+
 });
 
 
 
-module.exports = mongoose.model('Product',product)
+module.exports = mongoose.model('Product',Product)
