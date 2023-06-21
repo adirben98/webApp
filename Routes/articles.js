@@ -88,11 +88,14 @@ router.route('/admin').get(function(req,res) {res.sendFile(path.join(__dirname,"
 router.route('/admin/createProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createProduct.html"))})
 .post(Product.createProduct)
 
+router.route('/admin/createAdmin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createAdmin.html"))})
+.post(User.createUser)
 
+router.route('/admin/createBranch').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createBranch.html"))})
+.post(Branch.createBranch)
 
-
-
-
-
+router.get('/quail-egg' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Admin/quail-egg.jpg"))
+})
 
 module.exports=router
