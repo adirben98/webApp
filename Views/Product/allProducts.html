@@ -52,7 +52,6 @@
     <div class="container">
       <h2>Welcome to Eggsclusive!</h2>
       <p>Discover a wide range of eggs from various breeds.</p>
-      
       <div class="row">
         <div class="col-sm-3">
           <div class="filter-section">
@@ -143,47 +142,12 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-9">
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="egg-card">
-                <img src="/Eggs1" alt="Egg 1">
-                <h3>Chicken Egg</h3>
-                <p>Delicious chicken eggs from free-range farms.</p>
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-info">View Product</button>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="egg-card">
-                <img src="/Eggs2" alt="Egg 2">
-                <h3>Duck Egg</h3>
-                <p>Rich and flavorful duck eggs for your culinary delights.</p>
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-info">View Product</button>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="egg-card">
-                <img src="/Eggs3" alt="Egg 3">
-                <h3>Ostrich Egg</h3>
-                <p>Big and full with proteins, perfect for athletes.</p>
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-info">View Product</button>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="egg-card">
-                <img src="/Eggs4" alt="Egg 4">
-                <h3>Quail Egg</h3>
-                <p>Small yet packed with nutrients, perfect for appetizers.</p>
-                <button class="btn btn-primary">Add to Cart</button>
-                <button class="btn btn-info">View Product</button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div id="product-list">
+        <!-- Products will be dynamically loaded here -->
       </div>
+    
+      
+     
     </div>
   </main>
 
@@ -194,5 +158,35 @@
   </footer>
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+        $(document).ready(function() {
+          // Make an AJAX request to retrieve the products
+          $.ajax({
+            url: '/products',
+            method: 'PUT',
+            success: function(Products) {
+              // Iterate through the products and update the HTML
+              Products.forEach(function(Product) {
+                var productHtml = `
+                  <div class="egg-card">
+                    <h2>${Product.name}</h2>
+                    <img src="${Product.image}" alt="${Product.name}">
+                    <p>${Product.category} eggs</p>
+                    <p>Size: ${Product.EggSize}</p>
+                    <p>Tray of-${Product.traysize}</p>
+                    <p>Price: $${Product.price}</p>
+                    <a href="/products.${Product.name}" class="btn btn-info">View Product</a>
+                  </div>
+                `;
+                $('#product-list').append(productHtml);
+              });
+            },
+            error: function() {
+              alert('Error retrieving products');
+            }
+          });
+        });
+      </script>
 </body>
 </html>
