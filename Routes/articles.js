@@ -59,6 +59,9 @@ router.get('/Eggs4' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Product/eggs4.jpeg"))
 })
 
+router.get('/quail-egg' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Home/quail-egg.jpg"))
+})
 
 router.get('/cart' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Cart/cart.html"))
