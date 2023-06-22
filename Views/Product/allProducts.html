@@ -200,7 +200,7 @@
                     <p>Size: ${Product.EggSize}</p>
                     <p>Tray of-${Product.traysize}</p>
                     <p>Price: $${Product.price}</p>
-                    <a href="/products/?productName=${Product.name}" class="btn btn-info">View Product</a>
+                    <a href="/products/${Product.name}" class="btn btn-info">View Product</a>
                   </div>
                 `;
                 $('#product-list').append(productHtml);
