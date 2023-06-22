@@ -4,6 +4,7 @@ const path=require('path')
 const login=require('../Scripts/login')
 const Product=require('../Controllers/ProductsController')
 const User=require('../Controllers/UsersController')
+const Branch=require('../Controllers/BranchsControllers')
 
 router.get('/' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/index.html"))
@@ -107,11 +108,15 @@ router.route('/search').get(function(req,res)  {res.sendFile(path.join(__dirname
 router.route('/admin/createProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createProduct.html"))})
 .post(Product.createProduct)
 
+router.route('/admin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/adminPage.html"))})
 
+router.route('/admin/deleteBranch').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/deleteBranch.html"))})
+.post(Branch.deleteBranch)
 
+router.route('/admin/deleteProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/deleteProduct.html"))})
+.post(Product.deleteProduct)
 
-
-
-
+router.route('/admin/deleteUser').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/deleteUser.html"))})
+.post(User.deleteUser)
 
 module.exports=router
