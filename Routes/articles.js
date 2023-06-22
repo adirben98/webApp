@@ -37,7 +37,7 @@ router.get('/products/:productName' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Product/AProduct.html"))
 })
 
-router.put('/products/?productName=' ,Product.getProduct)
+router.put('/products/:productName' ,Product.getProduct)
 
 
 router.get('/contact' , function(req,res)  {
