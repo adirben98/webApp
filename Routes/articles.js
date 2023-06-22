@@ -1,15 +1,29 @@
 const express=require('express')
 const router=express.Router()
 const path=require('path')
-const login=require('../Controllers/login')
+const login=require('../Scripts/login')
 const Product=require('../Controllers/ProductsController')
 const User=require('../Controllers/UsersController')
-const Branch=require('../Controllers/BranchsController')
 
 router.get('/' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/index.html"))
 })
+router.get('/header.js' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Scripts/header.js"))
+})
 
+router.get('/header.html' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Home/header.html"))
+})
+
+
+router.get('/footer.js' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Scripts/footer.js"))
+})
+
+router.get('/footer.html' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Home/footer.html"))
+})
 
 router.get('/about' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/aboutUs.html"))
@@ -18,10 +32,12 @@ router.get('/about' , function(req,res)  {
 router.route('/products').get(  function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Product/allProducts.html"))
 }).put(Product.getProducts)
+
 router.get('/products/:productName' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Product/AProduct.html"))
 })
-router.put('/products/:productName' ,Product.getProduct)
+
+router.put('/products/?productName=' ,Product.getProduct)
 
 
 router.get('/contact' , function(req,res)  {
@@ -56,12 +72,9 @@ router.get('/changepass' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/changePass.html"))
 })
 
-router.route('/loginForm').get(function(req, res) {
-    res.sendFile(path.join(__dirname, '../Views/User/LoginForm.html'));
-  });
-
-  router.route('/login').post(login.login);
-  router.get('/logout', login.logout);
+router.route('/login').get(function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/User/LoginForm.html"))
+}).post(login.login)
 
 router.get('/logout',login.logout)
 
@@ -85,21 +98,17 @@ router.get('/freshly-laid-chicken-eggs' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/freshly-laid-chicken-eggs.jpg"))
 })
 
-router.route('/search').get(function(req,res)  {res.sendFile(path.join(__dirname,"../Controllers/searchBar.js"))}).post(Product.search)
+router.route('/search').get(function(req,res)  {res.sendFile(path.join(__dirname,"../Scripts/searchBar.js"))}).post(Product.search)
 
-router.route('/admin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/User/Admin.html"))})
 
 router.route('/admin/createProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createProduct.html"))})
 .post(Product.createProduct)
 
-router.route('/admin/createAdmin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createAdmin.html"))})
-.post(User.createUser)
 
-router.route('/admin/createBranch').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createBranch.html"))})
-.post(Branch.createBranch)
 
-router.get('/quail-egg' , function(req,res)  {
-    res.sendFile(path.join(__dirname,"../Views/Admin/quail-egg.jpg"))
-})
+
+
+
+
 
 module.exports=router
