@@ -1,0 +1,140 @@
+<html>
+<head>
+  <title>Eggsclusive</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/CSS">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+ 
+ <style>
+    /* Your custom styles go here */
+    .center-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+  </style>
+</head>
+
+<body>
+  <header class="center-header">
+   
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          
+          <h1><img src="/quail-egg" width="50" height="50" class="d-inline-block align-top" alt="">Eggsclusive</h1>
+        
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                User
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown1">
+                <a class="dropdown-item" href="/admin/createAdmin">Create User</a>
+                <a class="dropdown-item" href="/admin/deleteUser">Delete User</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Product
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
+                <a class="dropdown-item" href="/admin/createProduct">Create Product</a>
+                <a class="dropdown-item" href="/admin/deleteProduct">Delete Product</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Branch
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown3">
+                <a class="dropdown-item" href="/admin/createBranch">Create Branch</a>
+                <a class="dropdown-item" href="/admin/deleteBranch">Delete Branch</a>
+                
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <main>
+
+    <div class="container center-form">
+    <form action="/admin/createAdmin" method="POST">
+
+      <h1>Hello Admin</h1>
+    
+      <div id="container"></div>
+      <script type="module">
+      
+      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+      
+      // Declare the chart dimensions and margins.
+      const width = 640;
+      const height = 400;
+      const marginTop = 20;
+      const marginRight = 20;
+      const marginBottom = 30;
+      const marginLeft = 40;
+      
+      // Declare the x (horizontal position) scale.
+      const x = d3.scaleUtc()
+          .domain([new Date("2023-01-01"), new Date("2024-01-01")])
+          .range([marginLeft, width - marginRight]);
+      
+      // Declare the y (vertical position) scale.
+      const y = d3.scaleLinear()
+          .domain([0, 100])
+          .range([height - marginBottom, marginTop]);
+      
+      // Create the SVG container.
+      const svg = d3.create("svg")
+          .attr("width", width)
+          .attr("height", height);
+      
+      // Add the x-axis.
+      svg.append("g")
+          .attr("transform", `translate(0,${height - marginBottom})`)
+          .call(d3.axisBottom(x));
+      
+      // Add the y-axis.
+      svg.append("g")
+          .attr("transform", `translate(${marginLeft},0)`)
+          .call(d3.axisLeft(y));
+      
+      // Append the SVG element.
+      container.append(svg.node());
+      
+      </script>
+    </form>
+  </main>
+
+  <footer>
+    <div class="container">
+        <p>&copy; 2023 Eggsclusive. All rights reserved.</p>
+      </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
