@@ -15,70 +15,8 @@
 
 </head>
 <body>
-  <header>
-    <div class="container d-flex justify-content-between align-items-center">
-      <div>
-        <a href="/" class="title"><img src="/quail-egg" width="30" height="30" class="d-inline-block align-top" alt="">Eggsclusive</a>
-      </div>
-      <div class="d-flex align-items-center">
-        <div class="search-box">
-          <input type="text"  class="form-control" id="search-input" placeholder="Search Eggs...">
-    <div id="search-results" class="slider"></div>
-          <button class="btn btn-warning" type="button">Search</button>
-        </div>
-        <div class="nav-item ml-3">
-          <a class="nav-link" href="/cart">
-            <i class="fas fa-shopping-cart" style="color: goldenrod;"></i>
-          </a>
-        </div>
-        <div class="nav-item ml-3 dropdown">
-          <a class="nav-link" href="/account" id="accountDropdown">
-            <i class="fas fa-solid fa-user" style="color: goldenrod;"></i>
-          </a>
-          <div class="dropdown-content" aria-labelledby="accountDropdown">
-            <form class="px-4 py-3">
-              <div class="form-group">
-                <label for="exampleDropdownFormEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label for="exampleDropdownFormPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password" autocomplete="off">
-              </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                <label class="form-check-label" for="dropdownCheck">
-                  Remember me
-                </label>
-              </div>
-              <a type="submit" href="/login" class="btn btn-primary">Log in</a>
-            </form>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/signup">New around here? Sign up</a>
-            <a class="dropdown-item" href="#">Forgot password?</a>
-          </div>
-        </div>
-      </div>
-    </div>
-      </div>
-    </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <ul class="navbar-nav mx-auto">
-      <li class="nav-item">
-        <a class="nav-link"  href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/products">Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/contact">Contact</a>
-      </li>
-    </ul>
-  </nav>
-</header>
+  <div id="header-placeholder"></div>
+
 
   <main>
     <div class="container">
@@ -92,12 +30,12 @@
 <p></p><a href="https://github.com/adirben98"> Adir Ben</a></p>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2023 Eggsclusive. All rights reserved.</p>
-    </div>
-  </footer>
+<div id="footer-placeholder"></div>
+
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/search"></script>
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
 </body>
 </html>
