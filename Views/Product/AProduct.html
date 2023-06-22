@@ -108,8 +108,9 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
-      const urlParams = new URLSearchParams(window.location.search);
-    const productName = urlParams.get('productName');
+     const currentURL=window.location.href
+      const urlParts=currentURL.split('/')
+      const productName=urlParts[urlParts.length-1]
 
       $.ajax({
         url: '/products/'+productName,
