@@ -39,45 +39,8 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="container d-flex justify-content-between align-items-center">
-      <div>
-        <a href="/" class="title">Eggsclusive</a>
-      </div>
-      <div class="search-box">
-        <input type="text"  class="form-control" id="search-input" placeholder="Search Eggs...">
-  <div id="search-results" class="slider"></div>
-        <button class="btn btn-warning" type="button">Search</button>
-      </div>
-        <div class="nav-item ml-3">
-          <a class="nav-link" href="/cart">
-            <i class="fas fa-shopping-cart" style="color: goldenrod;"></i>
-          </a>
-        </div>
-        <div class="nav-item ml-3">
-          <a class="nav-link" href="/account">
-            <i class="fas fa-solid fa-user" style="color: goldenrod;"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <ul class="navbar-nav mx-auto">
-      <li class="nav-item active">
-        <a class="nav-link"  href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/products">Products</a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="/about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/contact">Contact</a>
-      </li>
-    </ul>
-  </nav>
-</header>
+  <div id="header-placeholder"></div>
+
 
   <main>
     <div class="container">
@@ -98,14 +61,14 @@
     </div>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2023 Eggsclusive. All rights reserved.</p>
-    </div>
-  </footer>
+ <div id="footer-placeholder"></div>
+
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/search"></script>
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
   <script>
     $(document).ready(function() {
      const currentURL=window.location.href
@@ -133,6 +96,5 @@
       });
     });
   </script>
-  <script src="/search"></script>
 </body>
 </html>
