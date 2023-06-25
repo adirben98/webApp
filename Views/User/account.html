@@ -56,9 +56,8 @@
   <script>
     $(document).ready(function() {
       $.ajax({
-        url: '/account/adirben98@gmail.com',
+        url: '/account/user',
         method: 'GET',
-        data: { email: 'adirben98@gmail.com' },
         success: function(data) {
           $('#userFirstName').text(data.firstName);
           $('#userLastName').text(data.lastName);
