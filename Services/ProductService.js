@@ -18,7 +18,12 @@ const createProduct = async (name,category,EggSize,traysize,price,description,im
 }
 
 const getProduct = async(productName) =>{
-    return await Product.findOne({name:productName})
+    const decodedName = decodeURIComponent(productName)
+    return await Product.findOne({name:decodedName})
+}
+
+const getProductById = async(productId) =>{
+    return await Product.findById(productId)
 }
 
 const getProducts = async() =>{
@@ -63,6 +68,7 @@ const search = async (query) => {
 module.exports = {
     createProduct,
     getProduct,
+    getProductById,
     getProducts,
     updateProduct,
     deleteProduct,

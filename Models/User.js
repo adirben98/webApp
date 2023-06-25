@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
-const Order = require('./Order');
 const Schema = mongoose.Schema;
-
-
-
 
 const user = new Schema({
     firstName: {
@@ -22,10 +18,6 @@ const user = new Schema({
     password:{
         type: String,
          required:true 
-    },
-    orderList:{
-        type: [Schema.Types.ObjectId],
-        ref: 'Order',
     },
     userType:{
         type:String,

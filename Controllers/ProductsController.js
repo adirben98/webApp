@@ -21,6 +21,15 @@ const getProduct = async (req,res) => {
   res.json(product);
 }
 
+const getProductById=async (req,res) => {
+  const product = await ProductService.getProductById(req.body.productId);
+  if (!product){
+    return res.status(404).json({errors:['Product not found']});
+  }
+  res.json(product);
+}
+
+
 const updateProduct = async (req,res) => {
   if (!req.body.title){
     res.status(400).json({message:'title is required'});
@@ -56,6 +65,7 @@ module.exports = {
     createProduct,
     getProduct,
     getProducts,
+    getProductById,
     updateProduct,
     deleteProduct,
     search

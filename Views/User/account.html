@@ -8,9 +8,8 @@
   
 </head>
 <body>
-  <header>
-    <!-- Header code remains the same -->
-  </header>
+  <div id="header-placeholder"></div>
+
 
   <main>
     <div class="container">
@@ -29,8 +28,10 @@
           <thead>
             <tr>
               <th>Order ID</th>
+              <th>Products</th>
               <th>Date</th>
-              <th>Total Amount</th>
+              <th>Total Price</th>
+              <th>Total Quantity</th>
             </tr>
           </thead>
           <tbody id="orderHistory">
@@ -44,21 +45,20 @@
     </div>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2023 Eggsclusive. All rights reserved.</p>
-    </div>
-  </footer>
+  <div id="footer-placeholder"></div>
 
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/search"></script>
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  
   <script>
     $(document).ready(function() {
-      
       $.ajax({
         url: '/account/adirben98@gmail.com',
         method: 'GET',
-        data:{email:'adirben98@gmail.com'},
+        data: { email: 'adirben98@gmail.com' },
         success: function(data) {
           $('#userFirstName').text(data.firstName);
           $('#userLastName').text(data.lastName);
@@ -71,27 +71,76 @@
           console.error('Error fetching user information:', err);
         }
       });
-
+  
       $.ajax({
-        url: '/api/orders',
+        url: '/account/orders',
         method: 'GET',
         success: function(data) {
           // Handle the success response and populate the order history dynamically
           const orderHistory = $('#orderHistory');
-          data.forEach(function(order) {
+  
+          data.forEach(async function(order) {
             const row = $('<tr></tr>');
-            row.append('<td>' + order.orderId + '</td>');
-            row.append('<td>' + order.date + '</td>');
-            row.append('<td>' + order.totalAmount + '</td>');
+            row.append('<td>' + order._id + '</td>');
+  
+            // Fetch the details of each product in the order
+            const products = [];
+            for (const productId of order.products) {
+              const product = await getProductById(productId);
+              products.push(product);
+            }
+  
+            // Create a card for each product in the order
+            const productsHTML = products.map(product => {
+              return (
+                '<div class="card">' +
+                '<img src="' +
+                product.image +
+                '" class="card-img-top" alt="Product Image">' +
+                '<div class="card-body">' +
+                '<h5 class="card-title">' +
+                product.name +
+                '</h5>' +
+                '<p class="card-text">Description: ' +
+                product.description +
+                '</p>' +
+                '</div>' +
+                '</div>'
+              );
+            });
+  
+            row.append('<td>' + productsHTML.join('') + '</td>');
+            row.append('<td>' + order.createdAt + '</td>');
+            row.append('<td>' + order.totalPrice + '</td>');
+            row.append('<td>' + order.totalQuantity + '</td>');
+  
             orderHistory.append(row);
           });
         },
         error: function(err) {
           // Handle the error case
           console.error('Error fetching order history:', err);
-        }
+        },
       });
     });
+  
+    // Function to fetch product details by ID
+    function getProductById(productId) {
+      return new Promise(function(resolve, reject) {
+        $.ajax({
+          url: '/products/' + productId,
+          method: 'POST',
+          data:{productId:productId},
+          success: function(product) {
+            resolve(product);
+          },
+          error: function(err) {
+            reject(err);
+          },
+        });
+      });
+    }
   </script>
+  
 </body>
 </html>

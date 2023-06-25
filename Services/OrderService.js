@@ -1,42 +1,25 @@
 const Order = require('../Models/Order')
 
-const createOrder = async (id,user,products,quantity,totalPrice,date) => {
-    const order = new Order(
+const createOrder = async (userId,products,totalAmount,totalPrice,date) => {
+    const newOrder = new Order(
         {
-        id:id,
-        user:user,
-        products:products,
-        quantity:quantity,
-        totalPrice:totalPrice,
-        
+            userId:userId,
+            products:products,
+            totalQuantity:totalAmount,
+            totalPrice:totalPrice
         });
     if (date)
-        order.createdAt = date;
+    newOrder.createdAt = date;
     
-    return await order.save()
+    return await newOrder.save()
 }
 
-const getOrderById = async(id) =>{
-    return await Order.findById(id)
+const getOrders = async(userId) =>{
+    return await Order.find({userId})
 }
 
-const getOrders = async() =>{
-    return await Order.find({})
-}
-
-
-
-const deleteOrder = async (id) => {
-    const order = await getOrderById(id);
-    if (!order)
-        return null;
-    await order.deleteOne();
-    return order;
-}
 
 module.exports = {
     createOrder,
-    getOrderById,
     getOrders,
-    deleteOrder
 }

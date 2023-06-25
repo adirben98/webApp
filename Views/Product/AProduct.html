@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="/CSS">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -33,21 +32,33 @@
       color: #777;
     }
     #productImage {
-  max-width: 100%;
-  height: auto;
-}
+      max-width: 100%;
+      height: auto;
+    }
+    #quantityInput {
+      width: 50px;
+      margin-right: 10px;
+      text-align: center;
+      border-radius: 4px;
+      border: 1px solid #ced4da;
+      padding: 4px 8px;
+      font-size: 14px;
+    }
+    #addToCartBtn {
+      padding: 4px 12px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-
 
   <main>
     <div class="container">
       <h2 id="productName"></h2>
       <div class="row">
         <div class="col-md-6">
-          <img id="productImage" alt="">
+          <img id="productImage" alt="Egg">
         </div>
         <div class="col-md-6">
           <p id="productCategory"></p>
@@ -55,28 +66,32 @@
           <p id="productTraySize"></p>
           <p id="productPrice"></p>
           <p id="productDescription"></p>
-          <button class="btn btn-primary">Add to Cart</button>
+          <div class="input-group mb-3">
+            <input id="quantityInput" type="number" class="form-control" min="1" value="1">
+            <div class="input-group-append">
+              <button id="addToCartBtn" class="btn btn-primary">Add to Cart</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
- <div id="footer-placeholder"></div>
-
+  <div id="footer-placeholder"></div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/search"></script>
   <script src="/header.js"></script>
   <script src="/footer.js"></script>
   <script>
     $(document).ready(function() {
-     const currentURL=window.location.href
-      const urlParts=currentURL.split('/')
-      const productName=urlParts[urlParts.length-1]
+      const currentURL = window.location.href;
+      const urlParts = currentURL.split('/');
+      const productName = urlParts[urlParts.length - 1];
 
       $.ajax({
-        url: '/products/'+productName,
+        url: '/products/' + productName,
         method: 'PUT',
         data: { productName: productName },
         success: function(data) {
@@ -94,7 +109,23 @@
           console.log('Error: Failed to fetch product information');
         }
       });
-    });
+
+      // Add to Cart button event handler
+      $('#addToCartBtn').click(function() {
+        const quantity = $('#quantityInput').val();
+        $.ajax({
+              url: '/cart/items/'+productName,
+              method: 'POST',
+              data: { productName: productName,
+                      quantity:quantity
+                     },
+              success:function(){
+                console.log('success')
+              window.location.href = '/products'
+
+              }
+      });
+    });})
   </script>
 </body>
 </html>

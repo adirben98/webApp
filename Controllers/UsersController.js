@@ -14,7 +14,7 @@ const getUser = async (req,res) => {
 }
 
 const getUsers = async (req,res) => {
-    const Users = UserService.getUsers();
+    const Users = await UserService.getUsers();
     res.json(Users);
 }
 
@@ -32,7 +32,7 @@ const updateUser = async (req,res) => {
 }
 
 const deleteUser = async (req,res) =>{
-    const User = await articleService.deleteUser(req.params.email);
+    const User = await UserService.deleteUser(req.params.email);
     if (!User){
       return res.status(404).json({errors:['User not found']});
     }

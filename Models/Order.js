@@ -6,21 +6,20 @@ const CartItem = require('./CartItem');
 
 
 const order = new Schema({
-    Id: {
-        type: String,
-        required:true
-    },
-    user: {
+  
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
       },
-      products: {
-        type: [Schema.Types.ObjectId],
-        ref: 'CartItem',
-        required: true
-      },
-    quantity:{
+      products: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'CartItem',
+        }
+      ]
+      ,
+    totalQuantity:{
         type:Number,
         required:true
         },
@@ -30,7 +29,7 @@ const order = new Schema({
             },
     createdAt:{
         type: Date,
-        default:Date.now
+        default:new Date()
     }
     
 });

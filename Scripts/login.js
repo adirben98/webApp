@@ -6,6 +6,8 @@ async function login(req, res) {
   const result = await loginService.login(email, password)
   if (result) {
     req.session.email = email
+   
+
     res.redirect('/')
   }
     else
@@ -24,7 +26,7 @@ async function login(req, res) {
         );
         console.log(password)
         if (request) {
-          //req.session.email = email;
+          req.session.email = email;
           return res.redirect('/');
         } else {
        

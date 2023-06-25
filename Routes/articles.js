@@ -4,7 +4,9 @@ const path=require('path')
 const login=require('../Scripts/login')
 const Product=require('../Controllers/ProductsController')
 const User=require('../Controllers/UsersController')
-const Branch=require('../Controllers/BranchsControllers')
+const Branch=require('../Controllers/BranchsController')
+const Cart=require('../Controllers/CartsController')
+const Order=require('../Controllers/OrdersController')
 
 router.get('/' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/index.html"))
@@ -34,11 +36,14 @@ router.route('/products').get(  function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Product/allProducts.html"))
 }).put(Product.getProducts)
 
-router.get('/products/:productName' , function(req,res)  {
+router.get('/products/:productName'  ,function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Product/AProduct.html"))
 })
 
 router.put('/products/:productName' ,Product.getProduct)
+router.post('/products/:productId' ,Product.getProductById)
+
+
 
 
 router.get('/contact' , function(req,res)  {
@@ -67,10 +72,20 @@ router.get('/quail-egg' , function(req,res)  {
 router.get('/cart' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Cart/cart.html"))
 })
+
+router.get('/cart/items',Cart.getCartItems )
+router.route('/cart/items/:productItemId' ).post(Cart.addToCart).put(Cart.updateCartitem).delete(Cart.removeCartItem)
+
+
+router.post('/cart/checkout',Cart.checkOut)
+
+
 router.get('/account' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/account.html"))
 })
+router.get('/account/orders', Order.getOrders)
 router.get('/account/:email', User.getUser)
+
 
 router.get('/changepass' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/changePass.html"))
