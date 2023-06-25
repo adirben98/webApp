@@ -85,7 +85,7 @@ router.get('/account' , function(req,res)  {
 })
 router.get('/account/orders', Order.getOrders)
 router.get('/account/user', User.getUser)
-
+router.get('/check-login' , login.isloggedin)
 
 router.get('/changepass' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/User/changePass.html"))
