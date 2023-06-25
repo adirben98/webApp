@@ -6,7 +6,7 @@ const createUser = async (req,res) => {
 }
 
 const getUser = async (req,res) => {
-    const User = await UserService.getUser(req.params.email);
+    const User = await UserService.getUser(req.session.email);
     if(!User){
         return res.status(404).json({errors:['User not found']});
     }
