@@ -14,35 +14,16 @@
           <i class="fas fa-shopping-cart" style="color: goldenrod;"></i>
         </a>
       </div>
-      <div class="nav-item ml-3 dropdown">
-        <a class="nav-link" href="/account" id="accountDropdown">
+     
+      <div class="nav-item ml-3 dropdown" id="accountDropdownContainer">
+        <a class="nav-link" id="accountDropdown">
           <i class="fas fa-solid fa-user" style="color: goldenrod;"></i>
         </a>
         <div class="dropdown-content" aria-labelledby="accountDropdown">
-          <form action="/login" method="post" class="px-4 py-3">
-            <div class="form-group">
-              <label for="exampleDropdownFormEmail1">Email address</label>
-              <input name="email" type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com" autocomplete="off">
-            </div>
-            <div class="form-group">
-              <label for="exampleDropdownFormPassword1">Password</label>
-              <input name="password" type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password" autocomplete="off">
-            </div>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="dropdownCheck">
-              <label class="form-check-label" for="dropdownCheck">
-                Remember me
-              </label>
-            </div>
-            <button type="submit" class="btn btn-primary">Log in</button>
-          </form>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/signup">New around here? Sign up</a>
-          <a class="dropdown-item" href="#">Forgot password?</a>
+          <!-- Dropdown content goes here -->
         </div>
       </div>
-    </div>
-  </div>
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class="navbar-nav mx-auto">
       <li class="nav-item">
@@ -60,3 +41,95 @@
     </ul>
   </nav>
 </header>
+
+<script>
+// Add event listener for hovering over the dropdown container
+document.getElementById('accountDropdownContainer').addEventListener('mouseover', function() {
+  // Show the dropdown content when hovering
+  document.getElementById('accountDropdownContainer').classList.add('show');
+});
+
+// Add event listener for moving the mouse out of the dropdown container
+document.getElementById('accountDropdownContainer').addEventListener('mouseout', function() {
+  // Hide the dropdown content when not hovering
+  document.getElementById('accountDropdownContainer').classList.remove('show');
+});
+
+
+$(document).ready(function() {
+    $('#accountDropdown').on('click', function(e) {
+      e.preventDefault(); // Prevent the default link behavior
+      
+      // Make an AJAX request to check if the user is logged in
+      $.ajax({
+        url: '/check-login',
+        method: 'GET',
+        success: function(response) {
+          if (response.isloggedin==true) {
+            // User is logged in, redirect to the account page
+            window.location.href = '/account';
+          } else {
+            // User is not logged in, redirect to the login page
+            window.location.href = '/login';
+          }
+        },
+        error: function() {
+          // Handle error
+          console.log('Error checking login status');
+        }
+      });
+    });
+  });
+  
+  $(document).ready(function() {  
+    $.ajax({
+      url: '/check-login',
+      method: 'GET',
+      success: function(response) {
+        if (response.isloggedin==true) {
+          // User is logged in, display their username
+          var username = response.firstName;
+          var dropdownContent = `
+            <div class="dropdown-content" aria-labelledby="accountDropdown">
+              <p>Welcome, ${username}!</p>
+              <a class="dropdown-item" href="/account">My Account</a>
+              <a class="dropdown-item" href="/logout">Log out</a>
+            </div>
+          `;
+          $('#accountDropdownContainer').append(dropdownContent);
+        } else {
+          // User is not logged in, display login/signup dropdown
+          var dropdownContent = `
+            <div class="dropdown-content" aria-labelledby="accountDropdown">
+              <form action="/login" method="post" class="px-4 py-3">
+              <div class="form-group">
+                <label for="exampleDropdownFormEmail1">Email address</label>
+                <input name="email" type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <label for="exampleDropdownFormPassword1">Password</label>
+                <input name="password" type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password" autocomplete="off">
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                <label class="form-check-label" for="dropdownCheck">
+                  Remember me
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary">Log in</button>
+            </form>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/signup">New around here? Sign up</a>
+            </div>
+          `;
+          $('#accountDropdownContainer').append(dropdownContent);
+        }
+      },
+      error: function() {
+        // Handle error
+        console.log('Error checking login status');
+      }
+    });
+
+  });
+</script>
