@@ -43,7 +43,9 @@ router.get('/products/:productName'  ,function(req,res)  {
 router.put('/products/:productName' ,Product.getProduct)
 router.post('/products/:productId' ,Product.getProductById)
 
-
+router.route('/branches').get( function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Views/Home/branches.html"))
+}).put(Branch.getBranches)
 
 
 router.get('/contact' , function(req,res)  {
