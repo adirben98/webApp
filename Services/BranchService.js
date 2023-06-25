@@ -34,7 +34,7 @@ const updateBranch = async (_id,name,address,Xcoordinate,Ycoordinate) => {
     return branch;
 }
 
-const deleteBranch = async (name) => {
+const deleteBranch = async (_id) => {
     const branch = await getBranchById(_id);
     if (!branch)
         return null;
