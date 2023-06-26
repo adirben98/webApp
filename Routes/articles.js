@@ -20,10 +20,6 @@ router.get('/header.html' , function(req,res)  {
 })
 
 
-router.get('/footer.js' , function(req,res)  {
-    res.sendFile(path.join(__dirname,"../Scripts/footer.js"))
-})
-
 router.get('/footer.html' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/footer.html"))
 })
