@@ -64,7 +64,25 @@ const search = async (query) => {
     }
   };
   
+const filter=async(category,eggSize,traySize)=>{
 
+    
+    const query = {};
+  
+    if (category) {
+      query.category = { $in: category };
+    }
+  
+    if (eggSize) {
+      query.eggSize = { $in: eggSize };
+    }
+  
+    if (traySize) {
+      query.traySize = { $in: traySize };
+    }
+  
+    return Product.find(query);
+}
 module.exports = {
     createProduct,
     getProduct,
@@ -72,5 +90,6 @@ module.exports = {
     getProducts,
     updateProduct,
     deleteProduct,
-    search
+    search,
+    filter
 }
