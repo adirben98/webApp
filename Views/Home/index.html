@@ -45,6 +45,7 @@
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -79,6 +80,16 @@
               </div>
             </a>
           </div>
+
+          <div class="carousel-item">
+            <div class="d-flex justify-content-center align-items-center" style="width: 800px; height: 400px; margin: auto;">
+              <div class="weather">
+                <h2>Weather</h2>
+                <div id="weather-info-container"></div>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -123,8 +134,30 @@
       videoContainer.innerHTML = '<iframe width="600" height="300" src="' + randomVideoURL + '" frameborder="0" allowfullscreen></iframe>';
     }
 
+    function getWeather() {
+      var weatherContainer = document.getElementById("weather-info-container");
+      var apiKey = "e33e6b62e63bab424bfd99276243dbc4";
+      var city = "Tel Aviv";
+      var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+
+      $.ajax({
+        url: apiUrl,
+        method: "GET",
+        success: function(response) {
+          var weatherDescription = response.weather[0].description;
+          var temperature = Math.round(response.main.temp - 273.15); // Convert from Kelvin to Celsius
+
+          weatherContainer.innerHTML = "<p>" + weatherDescription + "</p><p>Temperature: " + temperature + "°C</p>";
+        },
+        error: function() {
+          weatherContainer.innerHTML = "<p>Failed to fetch weather information.</p>";
+        }
+      });
+    }
+
     window.onload = function() {
       updateVideoSource();
+      getWeather();
     };
 
     
