@@ -119,7 +119,7 @@ router.get('/freshly-laid-chicken-eggs' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/freshly-laid-chicken-eggs.jpg"))
 })
 
-router.route('/search').get(function(req,res)  {res.sendFile(path.join(__dirname,"../Scripts/searchBar.js"))}).post(Product.search)
+router.route('/search').get(Product.search)
 
 
 router.route('/admin/createProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createProduct.html"))})
