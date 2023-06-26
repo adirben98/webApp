@@ -1,25 +1,41 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // Load the header HTML
   $.ajax({
     url: "/header.html",
     method: "GET",
-    success: function(html) {
+    success: function (html) {
       $("#header-placeholder").html(html);
       $("#search-input").on("input", searchProducts);
 
       $.ajax({
         url: "/footer.html",
         method: "GET",
-        success: function(html) {
+        success: function (html) {
           $("#footer-placeholder").html(html);
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
           console.error("Error loading footer:", error);
-        }
+        },
       });
     },
-    error: function(xhr, status, error) {
+    error: function (xhr, status, error) {
       console.error("Error loading header:", error);
+    },
+  });
+
+  // Add event listener for clicking outside the dropdown
+  $(document).on("click", function (e) {
+    const searchInput = $("#search-input");
+    const searchResults = $("#search-results");
+
+    // Close search results dropdown if the clicked element is not part of the search bar or the dropdown
+    if (
+      !searchInput.is(e.target) &&
+      searchInput.has(e.target).length === 0 &&
+      !searchResults.is(e.target) &&
+      searchResults.has(e.target).length === 0
+    ) {
+      searchResults.empty().hide();
     }
   });
 
@@ -38,48 +54,28 @@ $(document).ready(function() {
         url: `/search?query=${encodeURIComponent(searchValue)}`,
         method: "GET",
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
           const products = data.products;
 
           // Display search results as a dropdown
           const dropdown = $("<div>").addClass("search-results-dropdown");
-          products.forEach(product => {
+          products.forEach((product) => {
             const resultItem = $("<div>").addClass("search-results-item");
             const productName = $("<span>").text(product.name);
-            const productLink = $("<a>").attr("href", `/products/${product.name}`).append(productName);
+            const productLink = $("<a>")
+              .attr("href", `/products/${product.name}`)
+              .append(productName);
             resultItem.append(productLink);
             dropdown.append(resultItem);
           });
 
           // Show the dropdown with search results
-          searchResults.html(dropdown).show();
+          searchResults.empty().append(dropdown).show();
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
           console.error("Error retrieving search results:", error);
-        }
+        },
       });
     }
-  }
-
-  // Update the cart count periodically (e.g., every 10 seconds)
-  setInterval(updateCartCount, 10000);
-
-  // Function to update the cart count
-  function updateCartCount() {
-    $.ajax({
-      url: '/cart/items/count',
-      method: 'GET',
-      success: function(data) {
-        const cartCount = $('#cartCount');
-        if (data.count > 0) {
-          cartCount.text(data.count).show();
-        } else {
-          cartCount.hide();
-        }
-      },
-      error: function(err) {
-        console.error('Error fetching cart count:', err);
-      }
-    });
   }
 });
