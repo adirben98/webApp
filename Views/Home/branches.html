@@ -1,0 +1,96 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Eggsclusive</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/CSS">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+   <div class="branches-container">
+      <div class="branches-list" id="branches-list">
+        <!-- Branches will be dynamically loaded here -->
+      </div>
+      <div class="map" id="map" ></div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      
+      $.ajax({
+        url: '/branches',
+        method: 'PUT',
+        success: function(branches) {
+        
+          branches.forEach(function(branch) {
+            var branchHTML = `
+              <div class="branch-card">
+                <h2>Branch ${branch.name}</h2>
+                <p>Address: ${branch.address}</p>
+                <p>ID: ${branch._id}</p>
+              </div>
+            `;
+            $('#branches-list').append(branchHTML);
+          });
+
+          // Initialize the map after loading the branches
+          var map = L.map('map').setView([32.0853, 34.7818], 8);
+
+          // Add the tile layer (you can choose a different tile layer if desired)
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+          }).addTo(map);
+
+          // Iterate through the branches and add markers to the map
+          branches.forEach(function(branch) {
+            // Geocode the address to obtain coordinates
+            $.ajax({
+              url: `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(branch.address)}&key=6735aa21d754478fa5b657514e95cbfa`,
+              method: 'GET',
+              success: function(data) {
+                if (data.results.length > 0) {
+                  var location = data.results[0].geometry;
+                  var marker = L.marker([location.lat, location.lng]).addTo(map);
+                  marker.bindPopup(`
+                    <div class="branch-card">
+                      <h2>Branch ${branch.name}</h2>
+                      <p>Address: ${branch.address}</p>
+                      <p>ID: ${branch._id}</p>
+                    </div>
+                  `);
+                } else {
+                  console.error(`Geocoding failed for address: ${branch.address}`);
+                }
+              },
+              error: function() {
+                console.error(`Error geocoding address: ${branch.address}`);
+              }
+            });
+          });
+        },
+        error: function() {
+          alert('Error retrieving branches');
+        }
+      });
+    });
+  </script>
+
+  <script src="/search"></script>
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+</body>
+</html>
