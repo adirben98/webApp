@@ -19,7 +19,7 @@ const Product = new Schema({
     },
     traysize: {
         type: String,
-        enum:['4','12','18','30'],
+        enum:['1','4','12','18','30'],
         required:true
     },
     price:{
