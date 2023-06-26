@@ -51,14 +51,14 @@ const deleteProduct = async (req,res) => {
   res.send();
 }
 const search=async(req,res)=>{
-  const searchResult= await ProductService.search(req.body.query)
+  const searchResult= await ProductService.search(req.query.query)
   if(searchResult===-1)
   {
     res.status(500).json({ error: 'Internal server error' });
   }
   else{
-    res.json({ products: searchResult });
-  }
+    res.json({ products: searchResult });
+  }
 }
 
 module.exports = {
