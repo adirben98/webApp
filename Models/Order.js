@@ -15,7 +15,7 @@ const order = new Schema({
       products: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'CartItem',
+            ref: 'Product',
         }
       ]
       ,
