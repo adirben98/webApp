@@ -11,8 +11,8 @@ const Order=require('../Controllers/OrdersController')
 router.get('/' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Home/index.html"))
 })
-router.get('/header.js' , function(req,res)  {
-    res.sendFile(path.join(__dirname,"../Scripts/header.js"))
+router.get('/index.js' , function(req,res)  {
+    res.sendFile(path.join(__dirname,"../Scripts/index.js"))
 })
 
 router.get('/header.html' , function(req,res)  {
