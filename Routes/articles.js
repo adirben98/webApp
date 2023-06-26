@@ -50,22 +50,6 @@ router.get('/contact' , function(req,res)  {
 router.get('/CSS' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../CSS/home.css"))
 })
-router.get('/Eggs1' , function(req,res)  {
-    res.sendFile(path.join(__dirname,"../Views/Product/eggs1.jpeg"))
-})
-router.get('/Eggs2' , function(req,res)  {
-    res.sendFile(path.join(__dirname,"../Views/Product/eggs2.jpeg"))
-})
-router.get('/Eggs3' , function(req,res)  {
-    res.sendFile(path.join(__dirname,"../Views/Product/eggs3.jpeg"))
-})
-router.get('/Eggs4' , function(req,res)  {
-    res.sendFile(path.join(__dirname,"../Views/Product/eggs4.jpeg"))
-})
-
-router.get('/quail-egg' , function(req,res)  {
-    res.sendFile(path.join(__dirname,"../Views/Home/quail-egg.jpg"))
-})
 
 router.get('/cart' , function(req,res)  {
     res.sendFile(path.join(__dirname,"../Views/Cart/cart.html"))
