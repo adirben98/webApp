@@ -122,4 +122,7 @@ router.route('/admin/createBranch').get(function(req,res) {res.sendFile(path.joi
 router.route('/admin/createUser').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createUser.html"))})
 .post(User.createUser)
 
+router.get('/admin/allProducts' ,Product.getProducts)
+router.get('/admin/allBranches' ,Branch.getBranches)
+
 module.exports=router
