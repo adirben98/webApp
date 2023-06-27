@@ -1,40 +1,55 @@
+<!DOCTYPE html>
 <html>
 <head>
   <title>Eggsclusive</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="/CSS">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.1.1/dist/d3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
   
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
- 
- <style>
+  <style>
     /* Your custom styles go here */
     .center-form {
       display: flex;
       justify-content: center;
       align-items: center;
     }
+    
+    .center-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .chart-container {
+      margin-top: 50px;
+    }
 
-  </style>
+    h2{
+  color: coral;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+
+    #map-container {
+      width: 100%;
+      height: 500px;
+    }
+
+</style>
 </head>
 
 <body>
   <header class="center-header">
-   
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
         <a class="navbar-brand" href="#">
-          
           <h1><img src="/quail-egg" width="50" height="50" class="d-inline-block align-top" alt="">Eggsclusive</h1>
-        
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -66,75 +81,247 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown3">
                 <a class="dropdown-item" href="/admin/createBranch">Create Branch</a>
                 <a class="dropdown-item" href="/admin/deleteBranch">Delete Branch</a>
-                
               </div>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-
   </header>
 
   <main>
+    <div class="container">
+      <form action="/admin" method="POST">
+        <h2 class="display-4 text-center text-shadow">Hello Admin</h2>
 
-    <div class="container center-form">
-    <form action="/admin/createAdmin" method="POST">
+        
+        <div class="chart-container">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card bg-light">
+                <div class="card-body">
+                  <h5 class="card-title">Total Orders</h5>
+                  <p class="card-text">100</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card bg-light">
+                <div class="card-body">
+                  <h5 class="card-title">Total Profit</h5>
+                  <p class="card-text">$10,000</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card bg-light">
+                <div class="card-body">
+                  <h5 class="card-title">Total Users</h5>
+                  <p class="card-text">500</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <h1>Hello Admin</h1>
-    
-      <div id="container"></div>
-      <script type="module">
-      
-      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-      
-      // Declare the chart dimensions and margins.
-      const width = 640;
-      const height = 400;
-      const marginTop = 20;
-      const marginRight = 20;
-      const marginBottom = 30;
-      const marginLeft = 40;
-      
-      // Declare the x (horizontal position) scale.
-      const x = d3.scaleUtc()
-          .domain([new Date("2023-01-01"), new Date("2024-01-01")])
-          .range([marginLeft, width - marginRight]);
-      
-      // Declare the y (vertical position) scale.
-      const y = d3.scaleLinear()
-          .domain([0, 100])
-          .range([height - marginBottom, marginTop]);
-      
-      // Create the SVG container.
-      const svg = d3.create("svg")
-          .attr("width", width)
-          .attr("height", height);
-      
-      // Add the x-axis.
-      svg.append("g")
-          .attr("transform", `translate(0,${height - marginBottom})`)
-          .call(d3.axisBottom(x));
-      
-      // Add the y-axis.
-      svg.append("g")
-          .attr("transform", `translate(${marginLeft},0)`)
-          .call(d3.axisLeft(y));
-      
-      // Append the SVG element.
-      container.append(svg.node());
-      
-      </script>
-    </form>
+        <br></br>
+        <div id="chart" class="shadow-lg p-3 mb-5 bg-white rounded"></div>
+        <br></br>
+        <h1>Global Map</h1>
+        <div id="map-container" class="shadow-lg p-3 mb-5 bg-white rounded"></div>
+        
+
+      </form>
+    </div>
   </main>
 
   <footer>
     <div class="container">
-        <p>&copy; 2023 Eggsclusive. All rights reserved.</p>
-      </div>
+      <p>&copy; 2023 Eggsclusive. All rights reserved.</p>
+    </div>
   </footer>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      // AJAX request to fetch data
+      $.ajax({
+        url: '/admin/allProducts',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          // Data processing and chart creation
+          createBarChart(data);
+        },
+        error: function(error) {
+          console.error(error);
+        }
+      });
+  
+      // Function to create the bar chart
+      function createBarChart(data) {
+        // Set the dimensions of the chart
+        const margin = { top: 20, right: 20, bottom: 100, left: 80 };
+        const width = 600 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
+  
+        // Select the chart container element
+        const chartContainer = d3.select("#chart");
+  
+        // Create the SVG element within the container
+        const svg = chartContainer.append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  
+        // Create scales for the X and Y axes
+        const xScale = d3.scaleBand()
+          .domain(data.map(d => d.name))
+          .range([0, width])
+          .padding(0.1);
+  
+        const yScale = d3.scaleLinear()
+          .domain([0, d3.max(data, d => d.price)])
+          .range([height, 0]);
+  
+        // Create the X axis
+        const xAxis = d3.axisBottom(xScale);
+        svg.append("g")
+          .attr("transform", `translate(0, ${height})`)
+          .call(xAxis)
+          .selectAll("text")
+          .style("text-anchor", "end")
+          .attr("dx", "-.8em")
+          .attr("dy", ".15em")
+          .attr("transform", "rotate(-45)")
+          .attr("y", 10); // Move the labels down
+  
+        // Add X axis label
+        svg.append("text")
+          .attr("x", width / 2)
+          .attr("y", height + margin.bottom - 5)
+          .attr("text-anchor", "middle")
+          .text("Product Name");
+  
+        // Create the Y axis
+        const yAxis = d3.axisLeft(yScale);
+        svg.append("g")
+          .call(yAxis);
+  
+        // Add Y axis label
+        svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -height / 2)
+          .attr("y", -margin.left + 16)
+          .attr("dy", "1em")
+          .attr("text-anchor", "middle")
+          .text("Product Price ($)");
+  
+        // Create the bars
+        svg.selectAll("rect")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("x", d => xScale(d.name))
+          .attr("y", d => yScale(d.price))
+          .attr("width", xScale.bandwidth())
+          .attr("height", d => height - yScale(d.price))
+          .attr("fill", "steelblue");
+      }
+    });
+  </script>
+
+
+<script>
+  // Define the URL to fetch the data
+  const url = '/admin/allBranches';
+
+  // Fetch the data from the provided URL
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // Process the data to retrieve city names
+      const cities = data.map(branch => branch.address);
+
+      // Create the map container
+      const mapContainer = d3.select("#map-container");
+
+      // Set up the map projection
+      const projection = d3.geoNaturalEarth1()
+        .scale(150)
+        .translate([mapContainer.node().offsetWidth / 2, mapContainer.node().offsetHeight / 2]);
+
+      // Create the path generator
+      const path = d3.geoPath().projection(projection);
+
+      // Load the world map data
+      d3.json("https://unpkg.com/world-atlas/world/110m.json").then(worldMapData => {
+        // Draw the world map
+        mapContainer.append("svg")
+          .attr("width", "100%")
+          .attr("height", "100%")
+          .selectAll("path")
+          .data(topojson.feature(worldMapData, worldMapData.objects.countries).features)
+          .enter()
+          .append("path")
+          .attr("d", path)
+          .attr("fill", "#ccc");
+
+        // Tag the cities on the map
+        mapContainer.select("svg")
+          .selectAll("circle")
+          .data(cities)
+          .enter()
+          .append("circle")
+          .attr("cx", d => projection([0, 0])[0])
+          .attr("cy", d => projection([0, 0])[1])
+          .attr("r", 5)
+          .attr("fill", "red")
+          .attr("transform", d => `translate(${projection([0, 0])})`)
+          .transition()
+          .duration(1000)
+          .attr("transform", d => `translate(${projection([0, 0])})`);
+
+        // Update the city positions
+        mapContainer.select("svg")
+          .selectAll("circle")
+          .transition()
+          .duration(1000)
+          .attr("cx", d => projection([0, 0])[0])
+          .attr("cy", d => projection([0, 0])[1])
+          .attr("transform", d => `translate(${projection([0, 0])})`);
+
+        // Find the city coordinates and update the position on the map
+        mapContainer.select("svg")
+          .selectAll("circle")
+          .data(cities)
+          .transition()
+          .duration(1000)
+          .attr("cx", d => projection([0, 0])[0])
+          .attr("cy", d => projection([0, 0])[1])
+          .attr("transform", d => `translate(${projection([0, 0])})`);
+
+        // Add text labels to the cities
+        mapContainer.select("svg")
+          .selectAll("text")
+          .data(cities)
+          .enter()
+          .append("text")
+          .attr("x", d => projection([0, 0])[0] + 10)
+          .attr("y", d => projection([0, 0])[1])
+          .attr("font-size", "12px")
+          .attr("fill", "black")
+          .text(d => d);
+      });
+    });
+</script>
+
+</body>
+</html>
+
+
+
+
