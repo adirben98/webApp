@@ -118,8 +118,10 @@
               data: { productName: productName,
                       quantity:quantity
                      },
-              success:function(){
-                console.log('success')
+              success:function(response){
+              if(response.isloggedin===false)
+              window.location.href = '/login'
+                else
               window.location.href = '/products'
 
               }
