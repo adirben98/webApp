@@ -30,23 +30,23 @@ const getProducts = async() =>{
     return await Product.find({})
 }
 
-const updateProduct = async (name,category,size,traysize,price,description,supplier) => {
+const updateProduct = async (name,category,EggSize,traysize,price,description,image) => {
     const product = await Product.findOne(name);
     if (!product)
         return null;
     product.name=name    
     product.category=category
-    product.size=size
+    product.EggSize=EggSize
     product.traysize=traysize
     product.price=price
     product.description=description
-    product.supplier=supplier
+    product.image=image
     await product.save();
     return product;
 }
 
-const deleteProduct = async (productid) => {
-    const product = await getProductByID(productid);
+const deleteProduct = async (name) => {
+    const product = await findOne({name:name});
     if (!product)
         return null;
     await product.deleteOne();
