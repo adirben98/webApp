@@ -133,4 +133,7 @@ router.post('/filters',Product.filter)
 
 router.get('/facebook',function(req,res) {res.sendFile(path.join(__dirname,"../Scripts/facebook.js"))})
 
+router.get('/allOrders',Order.getAllOrders)
+
+
 module.exports=router
