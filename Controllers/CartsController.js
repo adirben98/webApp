@@ -67,11 +67,17 @@ const newOrder=await orderService.createOrder(user._id,array,totalAmount,totalPr
   res.redirect('/')
 }
 
+const isloggedin=async(req,res,next)=>{
+  if(req.session.email)
+    return next()
+    else res.json({isloggedin:false})
+}
 
 module.exports = {
    addToCart,
    getCartItems,
    updateCartitem,
    removeCartItem,
-   checkOut
+   checkOut,
+  isloggedin
 }
