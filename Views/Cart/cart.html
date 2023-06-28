@@ -136,7 +136,7 @@
             $.ajax({
               url: '/cart/checkout',
               method: 'POST',
-              success: function() {
+              success: function(response) {
                 console.log('Checkout successful');
                 // Handle the successful checkout scenario
                  if(response.isloggedin===false)
