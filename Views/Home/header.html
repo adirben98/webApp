@@ -46,6 +46,9 @@
       <li class="nav-item">
         <a class="nav-link" href="/branches">Branches</a>
       </li>
+      <li class="nav-item" id="adminButton" style="display: none;">  
+        <a class="nav-link" href="/admin">Admin</a>
+      </li>
     </ul>
   </nav>
 </header>
@@ -131,6 +134,27 @@
           `;
           $('#accountDropdownContainer').append(dropdownContent);
         }
+      },
+      error: function() {
+        // Handle error
+        console.log('Error checking login status');
+      }
+    });
+  });
+
+  $(document).ready(function() {
+    $.ajax({
+      url: '/check-login',
+      method: 'GET',
+      success: function(response) {
+        if (response.isloggedin == true) {
+          // User is logged in & is Admin
+          var UserType = response.userType;
+          if (UserType === 'admin') {
+      document.getElementById('adminButton').style.display = 'block';
+    }
+          
+        } 
       },
       error: function() {
         // Handle error
