@@ -124,5 +124,6 @@ router.route('/admin/createAdmin').get(function(req,res) {res.sendFile(path.join
 
 router.get('/admin/allProducts' ,Product.getProducts)
 router.get('/admin/allBranches' ,Branch.getBranches)
+router.get('/admin/allUsers' ,User.getUsers)
 
 module.exports=router
