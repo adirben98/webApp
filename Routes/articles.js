@@ -56,10 +56,10 @@ router.get('/cart' , function(req,res)  {
 })
 
 router.get('/cart/items',Cart.getCartItems )
-router.route('/cart/items/:productItemId' ).post(Cart.addToCart).put(Cart.updateCartitem).delete(Cart.removeCartItem)
+router.route('/cart/items/:productItemId' ).post(Cart.isloggedin,Cart.addToCart).put(Cart.updateCartitem).delete(Cart.removeCartItem)
 
 
-router.post('/cart/checkout',Cart.checkOut)
+router.post('/cart/checkout',Cart.isloggedin,Cart.checkOut)
 
 
 router.get('/account' , function(req,res)  {
@@ -128,5 +128,9 @@ router.route('/admin/createAdmin').get(function(req,res) {res.sendFile(path.join
 router.get('/admin/allProducts' ,Product.getProducts)
 router.get('/admin/allBranches' ,Branch.getBranches)
 router.get('/admin/allUsers' ,User.getUsers)
+
+router.post('/filters',Product.filter)
+
+router.get('/facebook',function(req,res) {res.sendFile(path.join(__dirname,"../Scripts/facebook.js"))})
 
 module.exports=router
