@@ -19,11 +19,6 @@ const getUsers = async (req,res) => {
 }
 
 const updateUser = async (req,res) => {
-    if(!req.body.firstName) res.status(400).json({message:'First name is required'});
-    if(!req.body.LastName) res.status(400).json({message:'Last name is required'});
-    if(!req.body.email) res.status(400).json({message:'Email is required'});
-    if(!req.body.password) res.status(400).json({message:'Password is required'});
-
     const User = await UserService.updateUser(req.body.firstName,req.body.lastName,req.body.email,req.body.password);
     if (!User){
       return res.status(404).json({errors:['User not found']});
@@ -32,11 +27,11 @@ const updateUser = async (req,res) => {
 }
 
 const deleteUser = async (req,res) =>{
-    const User = await UserService.deleteUser(req.params.email);
+    const User = await UserService.deleteUser(req.body.email);
     if (!User){
       return res.status(404).json({errors:['User not found']});
     }
-    res.send();
+    
 }
 
 module.exports = {
