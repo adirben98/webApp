@@ -18,8 +18,11 @@ const getOrders = async(userId) =>{
     return await Order.find({userId})
 }
 
-
+const getAllOrders=async()=>{
+    return await Order.find();
+}
 module.exports = {
     createOrder,
     getOrders,
+    getAllOrders
 }
