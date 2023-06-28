@@ -147,7 +147,7 @@
           var weatherDescription = response.weather[0].description;
           var temperature = Math.round(response.main.temp - 273.15); // Convert from Kelvin to Celsius
 
-          weatherContainer.innerHTML = "<p>" + weatherDescription + "</p><p>Temperature: " + temperature + "°C</p>";
+          weatherContainer.innerHTML = "<p>Location: " + city + "</p><p>" + weatherDescription + "</p><p>Temperature: " + temperature + "°C</p>";
         },
         error: function() {
           weatherContainer.innerHTML = "<p>Failed to fetch weather information.</p>";
