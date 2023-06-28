@@ -1,7 +1,7 @@
 const BranchService = require('../Services/BranchService')
 
 const createBranch = async (req,res) => {
-  const newBranch = await BranchService.createBranch(req.body._id,req.body.name,req.body.address,req.body.Xcoordinate,req.body.Ycoordinate);
+  const newBranch = await BranchService.createBranch(req.body.name,req.body.address);
   res.json(newBranch)
 }
 
@@ -16,7 +16,7 @@ const getBranches = async (req,res) => {
 }
 
 const getBranch = async (req,res) => {
-  const branch = await BranchService.getBranchById(req.params.name);
+  const branch = await BranchService.getBranch(req.body.name);
   if (!branch){
     return res.status(404).json({errors:['Branch not found']});
   }
@@ -24,11 +24,11 @@ const getBranch = async (req,res) => {
 }
 
 const updateBranch = async (req,res) => {
-  if (!req.body._id){
+  if (!req.body.name){
     res.status(400).json({message:'ID is required'});
   }
 
-  const branch = await BranchService.updateBranch(req.body._id,req.body.name,req.body.address,req.body.Xcoordinate,req.body.Ycoordinate);
+  const branch = await BranchService.updateBranch(req.body.name,req.body.address);
   if (!branch){
     return res.status(404).json({errors:['Branch not found']});
   }
@@ -36,11 +36,10 @@ const updateBranch = async (req,res) => {
 };
 
 const deleteBranch = async (req,res) => {
-  const branch = await BranchService.deleteBranch(req.params.name);
+  const branch = await BranchService.deleteBranch(req.body.name);
   if (!branch){
     return res.status(404).json({errors:['Branch not found']});
   }
-  res.send();
 }
 
 module.exports = {
