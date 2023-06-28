@@ -11,7 +11,10 @@ const getOrders = async (req,res) => {
     const orders = await OrderService.getOrders(user._id);
     res.json(orders);
 }
-
+const  getAllOrders=async(req,res)=>{
+const allOrders=OrderService.getAllOrders();
+res.json(allOrders)
+}
 module.exports = {
     createOrder,
     getOrders,
