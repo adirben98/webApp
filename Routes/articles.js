@@ -102,10 +102,13 @@ router.get('/freshly-laid-chicken-eggs' , function(req,res)  {
 router.route('/search').get(Product.search)
 
 
-router.route('/admin/createProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createProduct.html"))})
-.post(Product.createProduct)
+router.get('/check-admin' , login.isloggedin)
+router.get('/adminOnly',function(req,res){res.sendFile(path.join(__dirname,"../Scripts/adminOnly.js"))})
 
 router.route('/admin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/adminPage.html"))})
+
+router.route('/admin/createProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createProduct.html"))})
+.post(Product.createProduct)
 
 router.route('/admin/deleteBranch').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/deleteBranch.html"))})
 .post(Branch.deleteBranch)
