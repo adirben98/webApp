@@ -8,7 +8,7 @@ async function login(req, res) {
   if (result) {
     req.session.email = email
    req.session.firstName = User.firstName;
-
+   req.session.userType = User.userType
     res.redirect('/')
   }
     else
@@ -56,7 +56,8 @@ function isloggedin(req,res){
     if(req.session.email)
     res.json({isloggedin:true,
               email:req.session.email,
-            firstName:req.session.firstName})
+            firstName:req.session.firstName,
+             userType:req.session.userType})
     else
     res.json({isloggedin:false})
   }
