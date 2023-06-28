@@ -119,7 +119,7 @@ router.route('/admin/deleteUser').get(function(req,res) {res.sendFile(path.join(
 router.route('/admin/createBranch').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createBranch.html"))})
 .post(Branch.createBranch)
 
-router.route('/admin/createUser').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createUser.html"))})
+router.route('/admin/createAdmin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createAdmin.html"))})
 .post(User.createUser)
 
 router.get('/admin/allProducts' ,Product.getProducts)
