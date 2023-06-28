@@ -52,19 +52,24 @@ const checkOut= async (req,res) =>{
 //make an order and append it to the user's oredr history...
 const user= await userService.getUser(req.session.email)
 const cart=await cartService.getCartItems(req.session.email)
+var isBoughtOstrich=false
 var array=[]
 var totalPrice=0
 var totalAmount=0
 for (const cartItem of cart) {
   array.push(cartItem.productId);
   const product = await ProductService.getProductById(cartItem.productId);
+   if(product.category=='ostrich')
+      isBoughtOstrich=true
   totalPrice += cartItem.quantity * product.price;
   totalAmount += cartItem.quantity;
 }
+
 var time= new Date().toDateString();
 const newOrder=await orderService.createOrder(user._id,array,totalAmount,totalPrice,time)
   await cartService.deleteAllUsersCartItems(req.session.email)
-  res.redirect('/')
+  //res.redirect('/')
+  res.json({boughtOstrich:isBoughtOstrich})
 }
 
 const isloggedin=async(req,res,next)=>{
