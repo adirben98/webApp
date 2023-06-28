@@ -1,41 +1,37 @@
 const Branch = require('../Models/Branch')
 
-const createBranch = async (_id,name,address,Xcoordinate,Ycoordinate) => {
+const createBranch = async (name,address) => {
     const branch = new Branch(
         {
-        _id:_id,
          name:name,
          address:address,
-         Xcoordinate:Xcoordinate,
-         Ycoordinate:Ycoordinate
         });
    
     
     return await branch.save()
 }
 
-const getBranchById = async(_id) =>{
-    return await Branch.findOne(_id,_id)
+const getBranch = async(name) =>{
+    return await Branch.findOne({name:name})
 }
 
 const getBranches = async() =>{
     return await Branch.find({})
 }
 
-const updateBranch = async (_id,name,address,Xcoordinate,Ycoordinate) => {
-    const branch = await getBranchById(_id);
+const updateBranch = async (name,address,) => {
+    const branch = await getBranch(name);
     if (!branch)
         return null;
     branch.name=name
     branch.address=address
-    branch.Xcoordinate=Xcoordinate
-    branch.Ycoordinate=Ycoordinate
+    
     await branch.save();
     return branch;
 }
 
-const deleteBranch = async (_id) => {
-    const branch = await getBranchById(_id);
+const deleteBranch = async (name) => {
+    const branch = await getBranch(name);
     if (!branch)
         return null;
     await branch.deleteOne();
@@ -44,7 +40,7 @@ const deleteBranch = async (_id) => {
 
 module.exports = {
     createBranch,
-    getBranchById,
+    getBranch,
     getBranches,
     updateBranch,
     deleteBranch
