@@ -19,7 +19,7 @@ const getOrders = async(userId) =>{
 }
 
 const getAllOrders=async()=>{
-    return await Order.find();
+    return await Order.find({});
 }
 module.exports = {
     createOrder,
