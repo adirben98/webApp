@@ -74,11 +74,11 @@ const filter=async(category,eggSize,traySize)=>{
     }
   
     if (eggSize) {
-      query.eggSize = { $in: eggSize };
+      query.EggSize = { $in: eggSize };
     }
   
     if (traySize) {
-      query.traySize = { $in: traySize };
+      query.traysize = { $in: traySize };
     }
   
     return Product.find(query);
