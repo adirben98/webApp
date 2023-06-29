@@ -111,7 +111,7 @@
             });
   
             row.append('<td>' + productsHTML.join('') + '</td>');
-            row.append('<td>' + order.createdAt + '</td>');
+            row.append('<td>' + new Date(order.createdAt) + '</td>');
             row.append('<td>' + order.totalPrice + '</td>');
             row.append('<td>' + order.totalQuantity + '</td>');
   
