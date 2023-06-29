@@ -18,4 +18,5 @@ res.json(allOrders)
 module.exports = {
     createOrder,
     getOrders,
+    getAllOrders
 }
