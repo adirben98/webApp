@@ -137,6 +137,7 @@ router.get('/cart.js',function(req,res) {res.sendFile(path.join(__dirname,"../Sc
 
 
 router.get('/allOrders',Order.getAllOrders)
+router.post('/getProduct',Product.getProductById)
 
 
 module.exports=router
