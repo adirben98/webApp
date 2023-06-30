@@ -5,8 +5,10 @@ const createProduct = async (req,res) => {
   const {
     name,category,EggSize,traysize,price,description,image
   } = req.body;
-  const newProduct = await ProductService.createProduct( name,category,EggSize,traysize,price,description,image)
-res.status(200).json(newProduct)
+const newProduct = await ProductService.createProduct( name,category,EggSize,traysize,price,description,image)
+  if(newProduct)
+    return res.redirect('/admin')
+    else return  res.redirect('/admin/createProduct?error=1')
 }
 
 const getProducts = async (req,res) => {
