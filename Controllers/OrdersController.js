@@ -12,7 +12,7 @@ const getOrders = async (req,res) => {
     res.json(orders);
 }
 const  getAllOrders=async(req,res)=>{
-const allOrders=OrderService.getAllOrders();
+const allOrders=await OrderService.getAllOrders();
 res.json(allOrders)
 }
 module.exports = {
