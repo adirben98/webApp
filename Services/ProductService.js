@@ -2,7 +2,7 @@ const Product = require('../Models/Product');
 
 
 const createProduct = async (name,category,EggSize,traysize,price,description,image) => {
-const productExist=Product.findOne({name:name})
+const productExist=await Product.findOne({name:name})
   if(productExist)
     return false
     const product = new Product(
