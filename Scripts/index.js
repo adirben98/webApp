@@ -1,5 +1,14 @@
 $(document).ready(function () {
-  // Load the header HTML
+ let socket=io('http://localhost:3000')
+  socket.on('connect',()=>{
+    
+
+
+    socket.on("someone-bought-an-ostrich", () => {
+      alert("someone Bought an ostrich!!")
+    })
+  })
+  
   $.ajax({
     url: "/header.html",
     method: "GET",
