@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Eggsclusive</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/CSS">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/adminOnly"></script>
+  
+  <style>
+    /* Your custom styles go here */
+    .center-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .center-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="center-header">
+    <a href="/admin" class="title"><img src="https://previews.123rf.com/images/indigolotos/indigolotos1404/indigolotos140402389/27788470-single-quail-egg.jpg" width="30" height="30" class="d-inline-block align-top" alt="">Eggsclusive</a>
+  </header>
+
+  <main>
+    <h1>Update Product</h1>
+
+    <div class="container center-form">
+      <form action="/admin/updateProduct" method="POST">
+
+        <div class="form-group">
+          <label for="existingProductName">Existing Product Name</label>
+          <input type="text" class="form-control" name="existingName" id="existingProductName" required placeholder="Existing Name">
+        </div>
+
+        <div class="form-group">
+          <label for="newProductName">New Product Name</label>
+          <input type="text" class="form-control" name="newName" id="newProductName" required placeholder="New Name">
+        </div>
+
+        <div class="form-group">
+          <label for="productCategory">Product Category</label>
+          <select id="productCategory" name="category" class="form-control" required>
+            <option value="chicken">Chicken</option>
+            <option value="duck">Duck</option>
+            <option value="ostrich">Ostrich</option>
+            <option value="quail">Quail</option>
+            <option value="special">Special</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="productEggSize">Egg Size</label>
+          <select id="productEggSize" name="eggSize" class="form-control" required>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="productTraySize">Tray Size</label>
+          <select id="productTraySize" name="traySize" class="form-control" required>
+            <option value="1">1</option>
+            <option value="4">4</option>
+            <option value="12">12</option>
+            <option value="18">18</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="productPrice">Product Price</label>
+          <input type="number" class="form-control" name="price" id="productPrice" required placeholder="Price">
+        </div>
+
+        <div class="form-group">
+          <label for="productDescription">Product Description</label>
+          <textarea class="form-control" name="description" id="productDescription" required placeholder="Description"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="productImage">Product Image</label>
+          <input type="text" class="form-control" name="image" id="productImage" required placeholder="Image URL">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 Eggsclusive. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    
+    if (error) {
+      alert('Invalid Product Name!');
+    }
+  </script>
+</body>
+</html>
