@@ -22,12 +22,17 @@
       align-items: center;
       
     }
+    .center-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
 </head>
 
 <body>
   <header class="center-header">
-    <h1><img src="/quail-egg" width="50" height="50" class="d-inline-block align-top" alt="">Eggsclusive</h1>
+    <a href="/admin" class="title"><img src="https://previews.123rf.com/images/indigolotos/indigolotos1404/indigolotos140402389/27788470-single-quail-egg.jpg" width="30" height="30" class="d-inline-block align-top" alt="">Eggsclusive</a>
   </header>
 
   <main>
@@ -38,10 +43,10 @@
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" required placeholder="Email">
+        <input type="email" class="form-control" name = "email" id="email" required placeholder="Email">
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Delete User</button>
 
     </form>
   </main>
@@ -55,3 +60,15 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap"></script>
+  <script>
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    
+    if (error) {
+      
+      alert('Invalid Email!');
+    }
+  </script>
+</body>
+</html>
