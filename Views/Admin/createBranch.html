@@ -25,7 +25,7 @@
 
 <body>
   <header class="center-header">
-    <h1><img src="/quail-egg" width="50" height="50" class="d-inline-block align-top" alt="">Eggsclusive</h1>
+    <a href="/admin" class="title"><img src="https://previews.123rf.com/images/indigolotos/indigolotos1404/indigolotos140402389/27788470-single-quail-egg.jpg" width="30" height="30" class="d-inline-block align-top" alt="">Eggsclusive</a>
   </header>
 
   <main>
@@ -34,10 +34,6 @@
     <div class="container center-form">
       <form action="/admin/createBranch" method="POST">
 
-        <div class="form-group">
-          <label for="branch_id">Branch id</label>
-          <input type="number" class="form-control" name="_id" id="branch_id" required placeholder="Id">
-        </div>
 
         <div class="form-group">
           <label for="branchName">Branch Name</label>
@@ -47,16 +43,6 @@
         <div class="form-group">
           <label for="branchAddress">Branch Address</label>
           <input type="text" class="form-control" name="address" id="branchAddress" required placeholder="Address">
-        </div>
-
-        <div class="form-group">
-          <label for="x">X Coordinate</label>
-          <input type="number" class="form-control" name="_x" id="x" required placeholder="Number">
-        </div>
-
-        <div class="form-group">
-          <label for="y">Y Coordinate</label>
-          <input type="number" class="form-control" name="_y" id="y" required placeholder="Number">
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -73,5 +59,15 @@
  
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    
+    if (error) {
+      
+      alert('Invalid Branch Name!');
+    }
+  </script>
 </body>
 </html>
