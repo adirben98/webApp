@@ -16,22 +16,22 @@ async function createUser(firstName,lastName,email,password,userType){
     return await user.save()
 }
 
-const getUser = async(email) =>{
-    return await User.findOne({email:email})
+const getUser = async(existingEmail) =>{
+    return await User.findOne({email:existingEmail})
 }
 
 const getUsers = async() =>{
     return await User.find({})
 }
 
-const updateUser = async ( firstName,lastName,email,password) => {
-    const user = await getUser(email);
+const updateUser = async (existingEmail,firstName,lastName, userType) => {
+    const user = await getUser(existingEmail);
     if (!user)
         return null;
         user.firstName=firstName,
         user.lastName=lastName,
-        user.email=email,
-        user.password=password
+        user.userType=userType
+
     await user.save();
     return user;
 }
@@ -43,11 +43,26 @@ const deleteUser = async (email) => {
     await user.deleteOne();
     return user;
 }
+async function createAdmin(firstName,lastName,email,password,userType){
+    const admin = new User(
+        {
+        firstName:firstName,
+        lastName:lastName,
+        email:email,
+        password:password
+
+        });
+    if (userType)
+        admin.userType=userType
+    
+    return await admin.save()
+}
 
 module.exports = {
     createUser,
     getUser,
     getUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    createAdmin
 }
