@@ -1,3 +1,4 @@
+const Product = require('../Models/Product');
 const ProductService = require('../Services/ProductService');
 
 
@@ -33,22 +34,26 @@ const getProductById=async (req,res) => {
 }
 
 
-const updateProduct = async (req,res) => {
+const updateProduct = async (req, res) => {
+  const { existingName, newName, category, eggSize, traySize, price, description, image } = req.body;
 
-  const product = await ProductService.updateProduct(req.body.productid,req.body.name,req.body.category,req.body.size,req.body.traysize,req.body.price,req.body.description,req.body.supplier);
-  if (!product){
-    return res.status(404).json({errors:['Product not found']});
+  const product = await ProductService.updateProduct(existingName, newName, category, eggSize, traySize, price, description, image);
+
+  if (!product) {
+    return res.redirect('/admin/updateProduct?error=1');
   }
-  res.json(product);
+
+  return res.redirect('/admin');
 };
+
 
 
 const deleteProduct = async (req,res) => {
   const product = await ProductService.deleteProduct(req.body.name);
-  if (!product){
-    return res.status(404).json({errors:['Product not found']});
-  }
-  
+  if(product)
+    return res.redirect('/admin')
+    else return res.redirect('/admin/deleteProduct?error=1');
+    
 }
 const search=async(req,res)=>{
   const searchResult= await ProductService.search(req.query.query)
