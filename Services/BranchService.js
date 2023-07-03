@@ -11,24 +11,29 @@ const createBranch = async (name,address) => {
     return await branch.save()
 }
 
-const getBranch = async(name) =>{
-    return await Branch.findOne({name:name})
+const getBranch = async(existingName) =>{
+    return await Branch.findOne({name:existingName})
 }
 
 const getBranches = async() =>{
     return await Branch.find({})
 }
 
-const updateBranch = async (name,address,) => {
-    const branch = await getBranch(name);
-    if (!branch)
-        return null;
-    branch.name=name
-    branch.address=address
+const updateBranch = async (existingName, newName, newAddress) => {
+    const branch = await getBranch(existingName);
+    
+    if (!branch) {
+      return null;
+    }
+    
+    branch.name = newName;
+    branch.address = newAddress;
     
     await branch.save();
+    
     return branch;
-}
+  };
+  
 
 const deleteBranch = async (name) => {
     const branch = await getBranch(name);
