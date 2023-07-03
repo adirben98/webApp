@@ -107,23 +107,27 @@ router.get('/adminOnly',function(req,res){res.sendFile(path.join(__dirname,"../S
 
 router.route('/admin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/adminPage.html"))})
 
-router.route('/admin/createProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createProduct.html"))})
-.post(Product.createProduct)
-
+router.route('/admin/createBranch').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createBranch.html"))})
+.post(Branch.createBranch)
 router.route('/admin/deleteBranch').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/deleteBranch.html"))})
 .post(Branch.deleteBranch)
+router.route('/admin/updateBranch').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/updateBranch.html"))})
+.post(Branch.updateBranch)
 
+router.route('/admin/createProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createProduct.html"))})
+.post(Product.createProduct)
 router.route('/admin/deleteProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/deleteProduct.html"))})
 .post(Product.deleteProduct)
+router.route('/admin/updateProduct').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/updateProduct.html"))})
+.post(Product.updateProduct)
 
 router.route('/admin/deleteUser').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/deleteUser.html"))})
 .post(User.deleteUser)
-
-router.route('/admin/createBranch').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createBranch.html"))})
-.post(Branch.createBranch)
-
+router.route('/admin/updateUser').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/updateUser.html"))})
+.post(User.updateUser)
 router.route('/admin/createAdmin').get(function(req,res) {res.sendFile(path.join(__dirname,"../Views/Admin/createAdmin.html"))})
-.post(User.createUser)
+.post(User.createAdmin)
+
 
 router.get('/admin/allProducts' ,Product.getProducts)
 router.get('/admin/allBranches' ,Branch.getBranches)
