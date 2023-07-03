@@ -7,7 +7,6 @@ const productExist=await Product.findOne({name:name})
     return false
     const product = new Product(
         {
-    
        name:name,
        category:category,
        EggSize:EggSize,
@@ -20,9 +19,9 @@ const productExist=await Product.findOne({name:name})
     return await product.save()
 }
 
-const getProduct = async(productName) =>{
-    const decodedName = decodeURIComponent(productName)
-    return await Product.findOne({name:decodedName})
+
+const getProduct = async(existingName) =>{
+  return await Product.findOne({name:existingName})
 }
 
 const getProductById = async(productId) =>{
@@ -33,14 +32,16 @@ const getProducts = async() =>{
     return await Product.find({})
 }
 
-const updateProduct = async (name,category,EggSize,traysize,price,description,image) => {
-    const product = await Product.findOne(name);
-    if (!product)
-        return null;
-    product.name=name    
+const updateProduct = async (existingName,newName,category,eggSize,traySize,price,description,image) => {
+  const product = await getProduct(existingName);
+    
+  if (!product) {
+    return null;
+  }
+    product.name=newName  
     product.category=category
-    product.EggSize=EggSize
-    product.traysize=traysize
+    product.EggSize=eggSize
+    product.traysize=traySize
     product.price=price
     product.description=description
     product.image=image
@@ -49,7 +50,7 @@ const updateProduct = async (name,category,EggSize,traysize,price,description,im
 }
 
 const deleteProduct = async (name) => {
-    const product = await findOne({name:name});
+    const product = await getProduct(name);
     if (!product)
         return null;
     await product.deleteOne();
