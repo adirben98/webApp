@@ -209,3 +209,11 @@ footer {
       font-size: 25px;
       color: black;
     }
+
+    .card-img-top {
+      max-width: 150px; /* Adjust the value as needed */
+      height: auto;
+      display: block;
+      margin: 0 auto; /* Center the image horizontally */
+    }
+
