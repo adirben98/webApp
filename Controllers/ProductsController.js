@@ -7,9 +7,9 @@ const createProduct = async (req,res) => {
     name,category,EggSize,traysize,price,description,image
   } = req.body;
 const newProduct = await ProductService.createProduct( name,category,EggSize,traysize,price,description,image)
-  if(newProduct)
+  if(newProduct){
     await postToFacebook(message)
-    return res.redirect('/admin')
+    return res.redirect('/admin')}
     else return  res.redirect('/admin/createProduct?error=1')
 }
 
