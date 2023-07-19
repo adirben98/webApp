@@ -78,6 +78,35 @@ const filter=async(req,res)=>{
     });
 
 }
+async function postToFacebook(postMessage,imageLink) {
+  const API_BASE = 'https://graph.facebook.com/v15.0';
+const userToken = "EAANq3jedXiEBALI4c6Yl9myxy7x3ujOSBT4mHTFrvMd4XYtY3pD0YZBFRCnICtsaQUJIpPhAPVJSjO4IK8VYZA30V9V0WXwAcZBmN2YPCOQtgUOBqeejeLtTk05IW3JoW2ZAVa056g83rzifHSUc1QaN263ShJD2t8NQjRNo1zudqIfGBKxG82ZCsh6edgdyVWxA7xV4WCyISGfK7fy9w"
+
+const pageResp = await fetch(`${API_BASE}/me/accounts?access_token=${userToken}`);
+
+const pages = await pageResp.json();
+
+const page = pages.data[0]
+const pageToken = page.access_token;
+const pageId = page.id;
+
+const fbPostObj = {
+      message: postMessage,
+      
+};
+
+const postResp = await fetch(`${API_BASE}/${pageId}/feed?access_token=${pageToken}`, {
+  method: 'POST',
+  headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(fbPostObj)
+});
+
+const post = await postResp.json();
+
+
+}
 module.exports = {
     createProduct,
     getProduct,
