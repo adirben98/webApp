@@ -5,13 +5,11 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="/CSS">
-    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
 
-  
 </head>
 <body>
   <div id="header-placeholder"></div>
-
 
   <main>
     <div class="container">
@@ -54,7 +52,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="/index.js"></script>
   
-  
   <script>
     $(document).ready(function() {
       $.ajax({
@@ -64,7 +61,7 @@
           $('#userFirstName').text(data.firstName);
           $('#userLastName').text(data.lastName);
           $('#userEmail').text(data.email);
-          $('#userPassword').text(data.password);
+          // $('#userPassword').text(data.password);
           $('#userType').text(data.userType);
         },
         error: function(err) {
@@ -91,26 +88,19 @@
               products.push(product);
             }
   
-            // Create a card for each product in the order
-            const productsHTML = products.map(product => {
-              return (
+            // Create a cell for each product in the order
+            products.forEach(product => {
+              const productCell = $('<td></td>');
+              const productCard = $(
                 '<div class="card">' +
-                '<img src="' +
-                product.image +
-                '" class="card-img-top" alt="Product Image">' +
+                '<img src="' + product.image + '" class="card-img-top" alt="Product Image">' +
                 '<div class="card-body">' +
-                '<h5 class="card-title">' +
-                product.name +
-                '</h5>' +
-                '<p class="card-text">Description: ' +
-                product.description +
-                '</p>' +
-                '</div>' +
-                '</div>'
+                '<h5 class="card-title">' + product.name + '</h5>'
               );
+              productCell.append(productCard);
+              row.append(productCell);
             });
   
-            row.append('<td>' + productsHTML.join('') + '</td>');
             row.append('<td>' + new Date(order.createdAt) + '</td>');
             row.append('<td>' + order.totalPrice + '</td>');
             row.append('<td>' + order.totalQuantity + '</td>');
@@ -131,7 +121,7 @@
         $.ajax({
           url: '/products/' + productId,
           method: 'POST',
-          data:{productId:productId},
+          data: { productId: productId },
           success: function(product) {
             resolve(product);
           },
@@ -142,6 +132,5 @@
       });
     }
   </script>
-  
 </body>
 </html>
