@@ -1,136 +1,680 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Eggsclusive</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="/CSS">
-  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+  <head>
+    <title>Eggsclusive</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/CSS">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.1.1/dist/d3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
 
-</head>
+    <script src="/adminOnly"></script>
+    <meta charset="utf-8">
+    
+    
+    <!-- Your custom styles go here -->
+    <style>
+      .center-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .center-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      
+      /*.chart-container {
+        margin-top: 50px;
+      }*/
+  
+      h2 {
+        color: coral;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      }
+  
+      .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 2px;
+      }
+  
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 1px;
+        shape-rendering: crispEdges;
+      }
+  
+      .tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 8px;
+        font-size: 12px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        pointer-events: none;
+      }
+
+      #chart-container {
+  display: flex;
+  overflow: hidden; /* Ensure child elements do not overflow */
+}
+
+#chart-container > div {
+  flex: 1;
+  padding: 0 10px; /* Adjust the padding as needed */
+  background-color: #ffffff; /* Set background color to match the page background */
+  border-radius: 5px; /* Add border radius for a rounded appearance */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for a subtle effect */
+}
+
+#chart3 {
+  flex: 1;
+}
+
+#legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+    </style>
+  </head>
+  
+
 <body>
-  <div id="header-placeholder"></div>
+  <header class="center-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container d-flex align-items-center">
+        <a class="navbar-brand" href="/">
+          <h1><img src="https://previews.123rf.com/images/indigolotos/indigolotos1404/indigolotos140402389/27788470-single-quail-egg.jpg" width="50" height="50" class="d-inline-block align-top" alt="">Eggsclusive</h1>
+        </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                User
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown1">
+                <a class="dropdown-item" href="/admin/createAdmin">Create User</a>
+                <a class="dropdown-item" href="/admin/deleteUser">Delete User</a>
+                <a class="dropdown-item" href="/admin/updateUser">Update User</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Product
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
+                <a class="dropdown-item" href="/admin/createProduct">Create Product</a>
+                <a class="dropdown-item" href="/admin/deleteProduct">Delete Product</a>
+                <a class="dropdown-item" href="/admin/updateProduct">Update Product</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Branch
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown3">
+                <a class="dropdown-item" href="/admin/createBranch">Create Branch</a>
+                <a class="dropdown-item" href="/admin/deleteBranch">Delete Branch</a>
+                <a class="dropdown-item" href="/admin/updateBranch">Update Branch</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
 
   <main>
     <div class="container">
-      <h2>My Account</h2>
-      <a href="/logout" class="btn btn-warning"> Logout</a>
-      <div class="account-section">
-        <h3>User Information</h3>
-        <p>First Name: <span id="userFirstName"></span></p>
-        <p>Last Name: <span id="userLastName"></span></p>
-        <p>Email: <span id="userEmail"></span></p>
-        <!-- <p>Password: <span type="password" id="userPassword"></span></p> -->
-        <p>User Type: <span id="userType"></span></p>
+      <form action="/admin" method="POST">
+        <h2 class="display-4 text-center text-shadow">Hello Admin</h2>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card bg-light" id="totalOrdersCard">
+                <div class="card-body">
+                  <h5 class="card-title">Total Profit ($)</h5>
+                  <p class="card-text" id="totalOrdersCount"></p>
+                </div>
+              </div>
+            </div>
+        
+            <div class="col-md-4">
+              <div class="card bg-light">
+                <div class="card-body">
+                  <h5 class="card-title">Total Orders</h5>
+                  <p class="card-text" id="totalOrders"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card bg-light">
+                <div class="card-body">
+                  <h5 class="card-title">Total Users</h5>
+                  <p class="card-text" id="totalUsers"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="account-section">
-        <h3>Order History</h3>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Products</th>
-              <th>Date</th>
-              <th>Total Price</th>
-              <th>Total Quantity</th>
-            </tr>
-          </thead>
-          <tbody id="orderHistory">
-          </tbody>
-        </table>
+
+      <br></br>
+      <h1>Orders-Category ratio</h1>
+      <div id="chart-container" class="shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h6 class="text-muted"></h6>
+              <p class="text-secondary">Color description:</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div id="legend"></div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h6 class="text-muted"></h6>
+              <p class="text-secondary">This chart represnts product categories from all orders</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div id="chart3"></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="account-section">
-        <h3>Change Password</h3>
-        <a href="/changePass" class="btn btn-warning">Change Password</a>
-      </div>          
+
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1>All Orders</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="shadow-lg p-3 mb-5 bg-white rounded">
+              <div class="row">
+                <div class="col text-end">
+                  <p class="text-muted">This graph represents the order date and transaction amount</p>
+                </div>
+              </div>
+              <div id="chart2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+       
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1>Product prices</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="shadow-lg p-3 mb-5 bg-white rounded">
+              <div class="row">
+                <div class="col text-end">
+                  <p class="text-muted">This graph represents the price differences between all products</p>
+                </div>
+              </div>
+              <div id="chart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      </form>
     </div>
   </main>
 
-  <div id="footer-placeholder"></div>
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 Eggsclusive. All rights reserved.</p>
+    </div>
+  </footer>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="/index.js"></script>
-  
   <script>
+    //G 1
     $(document).ready(function() {
+      // AJAX request to fetch data
       $.ajax({
-        url: '/account/user',
-        method: 'GET',
+        url: '/admin/allProducts',
+        type: 'GET',
+        dataType: 'json',
         success: function(data) {
-          $('#userFirstName').text(data.firstName);
-          $('#userLastName').text(data.lastName);
-          $('#userEmail').text(data.email);
-          // $('#userPassword').text(data.password);
-          $('#userType').text(data.userType);
+          // Data processing and chart creation
+          createBarChart(data);
         },
-        error: function(err) {
-          // Handle the error case
-          console.error('Error fetching user information:', err);
+        error: function(error) {
+          console.error(error);
         }
       });
   
-      $.ajax({
-        url: '/account/orders',
-        method: 'GET',
-        success: function(data) {
-          // Handle the success response and populate the order history dynamically
-          const orderHistory = $('#orderHistory');
+      // Function to create the bar chart
+      function createBarChart(data) {
+        // Set the dimensions of the chart
+        const margin = { top: 20, right: 20, bottom: 100, left: 80 };
+        const width = 600 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
   
-          data.forEach(async function(order) {
-            const row = $('<tr></tr>');
-            row.append('<td>' + order._id + '</td>');
+        // Select the chart container element
+        const chartContainer = d3.select("#chart");
   
-            // Fetch the details of each product in the order
-            const products = [];
-            for (const productId of order.products) {
-              const product = await getProductById(productId);
-              products.push(product);
-            }
+        // Create the SVG element within the container
+        const svg = chartContainer.append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", `translate(${margin.left}, ${margin.top})`);
   
-            // Create a cell for each product in the order
-            products.forEach(product => {
-              const productCell = $('<td></td>');
-              const productCard = $(
-                '<div class="card">' +
-                '<img src="' + product.image + '" class="card-img-top" alt="Product Image">' +
-                '<div class="card-body">' +
-                '<h5 class="card-title">' + product.name + '</h5>'
-              );
-              productCell.append(productCard);
-              row.append(productCell);
-            });
+        // Create scales for the X and Y axes
+        const xScale = d3.scaleBand()
+          .domain(data.map(d => d.name))
+          .range([0, width])
+          .padding(0.1);
   
-            row.append('<td>' + new Date(order.createdAt) + '</td>');
-            row.append('<td>' + order.totalPrice + '</td>');
-            row.append('<td>' + order.totalQuantity + '</td>');
+        const yScale = d3.scaleLinear()
+          .domain([0, d3.max(data, d => d.price)])
+          .range([height, 0]);
   
-            orderHistory.append(row);
-          });
-        },
-        error: function(err) {
-          // Handle the error case
-          console.error('Error fetching order history:', err);
-        },
-      });
+        // Create the X axis
+        const xAxis = d3.axisBottom(xScale);
+        svg.append("g")
+          .attr("transform", `translate(0, ${height})`)
+          .call(xAxis)
+          .selectAll("text")
+          .style("text-anchor", "end")
+          .attr("dx", "-.8em")
+          .attr("dy", ".15em")
+          .attr("transform", "rotate(-45)")
+          .attr("y", 10); // Move the labels down
+  
+        // Add X axis label
+        svg.append("text")
+          .attr("x", width / 2)
+          .attr("y", height + margin.bottom - 5)
+          .attr("text-anchor", "middle")
+          .text("Product Name");
+  
+        // Create the Y axis
+        const yAxis = d3.axisLeft(yScale);
+        svg.append("g")
+          .call(yAxis);
+  
+        // Add Y axis label
+        svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -height / 2)
+          .attr("y", -margin.left + 16)
+          .attr("dy", "1em")
+          .attr("text-anchor", "middle")
+          .text("Product Price ($)");
+  
+        // Create the bars
+        svg.selectAll("rect")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("x", d => xScale(d.name))
+          .attr("y", d => yScale(d.price))
+          .attr("width", xScale.bandwidth())
+          .attr("height", d => height - yScale(d.price))
+          .attr("fill", "steelblue");
+      }
     });
-  
-    // Function to fetch product details by ID
-    function getProductById(productId) {
-      return new Promise(function(resolve, reject) {
+
+    $.ajax({
+  url: '/allOrders',
+  type: 'GET',
+  dataType: 'json',
+  success: function(data) {
+    // Extract the required data for the chart
+    var chartData = data.map(function(order) {
+      return {
+        date: order.createdAt,
+        price: order.totalPrice
+      };
+    });
+    console.log(chartData);
+
+    // Set up the dimensions and margins for the chart
+    var margin = { top: 20, right: 20, bottom: 100, left: 80 };
+    var width = 600 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
+
+    // Append an SVG element to the chart div
+    var svg = d3
+      .select('#chart2')
+      .append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+    // Parse the date string to a JavaScript Date object
+    var parseDate = d3.timeParse('%Y-%m-%dT%H:%M:%S.%LZ');
+    console.log(parseDate(chartData[0].date));
+
+    // Set the ranges for the X and Y axes
+    var x = d3
+      .scaleTime()
+      .range([0, width])
+      .domain([
+        d3.timeWeek.offset(d3.max(chartData, function(d) {
+          return parseDate(d.date);
+        }), -5), // Set the domain end to 9 weeks before the maximum date
+        d3.timeWeek.offset(d3.max(chartData, function(d) {
+          return parseDate(d.date);
+        }), 0) // Set the domain end to 1 week after the maximum date
+      ]);
+
+    var y = d3
+      .scaleLinear()
+      .range([height, 0])
+      .domain([
+         0,
+        d3.max(chartData, function(d) {
+          return d.price;
+        })
+      ]);
+
+    // Add the lollipops
+    svg.selectAll('.lollipop')
+      .data(chartData)
+      .enter()
+      .append('line')
+      .attr('class', 'lollipop')
+      .attr('x1', function(d) {
+        return x(parseDate(d.date));
+      })
+      .attr('x2', function(d) {
+        return x(parseDate(d.date));
+      })
+      .attr('y1', function(d) {
+        return y(d.price);
+      })
+      .attr('y2', height)
+      .attr('stroke', 'steelblue');
+
+    // Add the lollipop heads
+    svg.selectAll('.lollipop-head')
+      .data(chartData)
+      .enter()
+      .append('circle')
+      .attr('class', 'lollipop-head')
+      .attr('cx', function(d) {
+        return x(parseDate(d.date));
+      })
+      .attr('cy', function(d) {
+        return y(d.price);
+      })
+      .attr('r', 5)
+      .attr('fill', 'steelblue');
+
+    // Add the X-axis
+    svg.append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(d3.axisBottom(x)
+      .tickFormat(d3.timeFormat("%Y-%m-%d")) // Format the tick labels as "YYYY-MM-DD"
+      .ticks(d3.timeWeek.every(1))// Set the interval to one week
+      )
+  .selectAll('text')
+  .style('text-anchor', 'end')
+  .attr('dx', '-.8em')
+  .attr('dy', '.15em')
+  .attr('transform', 'rotate(-45)');
+
+
+    // Add the X-axis label
+    svg.append('text')
+      .attr('x', width / 2)
+      .attr('y', height + margin.bottom -40)
+      .attr('text-anchor', 'middle')
+      .text('Date');
+
+    // Add the Y-axis
+    svg.append('g')
+      .attr('class', 'y-axis')
+      .call(d3.axisLeft(y));
+
+    // Add the Y-axis label
+    svg.append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -height / 2)
+      .attr('y', -margin.left + 16)
+      .attr('dy', '1em')
+      .attr('text-anchor', 'middle')
+      .text('Order Price ($)');
+  },
+  error: function(error) {
+    console.error(error);
+  }
+});
+
+//card 1
+$.ajax({
+  url: '/allOrders',
+  type: 'GET',
+  dataType: 'json',
+  success: function(data) {
+    // Calculate the sum of totalPrice from all orders
+    var totalOrdersCount = data.reduce(function(sum, order) {
+      return sum + order.totalPrice;
+    }, 0);
+
+    // Display the result on the card
+    $('#totalOrdersCount').text(totalOrdersCount);
+  },
+  error: function(error) {
+    console.error(error);
+  }
+});
+
+//card 2
+$.ajax({
+  url: '/allOrders',
+  type: 'GET',
+  dataType: 'json',
+  success: function(data) {
+    var totalOrders = data.length;
+    $('#totalOrders').text(totalOrders);
+  },
+  error: function(error) {
+    console.error(error);
+  }
+});
+
+//card 3
+$.ajax({
+  url: '/admin/allUsers',
+  type: 'GET',
+  dataType: 'json',
+  success: function(data) {
+    var totalUsers = data.length;
+    $('#totalUsers').text(totalUsers);
+  },
+  error: function(error) {
+    console.error(error);
+  }
+});
+
+
+//G   3
+    // Fetch all orders
+   $.ajax({
+  url: '/allOrders',
+  method: 'GET',
+  dataType: 'json',
+  success: function (data) {
+    // Create a dictionary to store category counts
+    var categoryCounts = {
+      chicken: 0,
+      duck: 0,
+      ostrich: 0,
+      quail: 0,
+      special: 0
+    };
+
+    // Iterate over each order
+    data.forEach(function (order) {
+      // Fetch products for each order
+      order.products.forEach(function (product) {
         $.ajax({
-          url: '/products/' + productId,
+          url: '/getProduct',
           method: 'POST',
-          data: { productId: productId },
-          success: function(product) {
-            resolve(product);
+          dataType: 'json',
+          data: { productId: product },
+          success: function (productData) {
+            // Check if category is 'chicken' and increment the count
+            if (productData.category === 'chicken') {
+              categoryCounts.chicken += 1;
+            }
+            if (productData.category === 'duck') {
+              categoryCounts.duck += 1;
+            }
+            if (productData.category === 'ostrich') {
+              categoryCounts.ostrich += 1;
+            }
+            if (productData.category === 'quail') {
+              categoryCounts.quail += 1;
+            }
+            if (productData.category === 'special') {
+              categoryCounts.special += 1;
+            }
+
+            // Update the chart
+            updateChart();
           },
-          error: function(err) {
-            reject(err);
-          },
+          error: function (error) {
+            console.log('Error fetching product data:', error);
+          }
         });
       });
+    });
+
+    // Update the chart with the latest data
+    function updateChart() {
+      // Convert categoryCounts object into an array of objects
+      var categoryData = Object.entries(categoryCounts).map(function ([category, count]) {
+        return { category: category, count: count };
+      });
+
+      // Sort the data by count in descending order
+      categoryData.sort(function (a, b) {
+        return b.count - a.count;
+      });
+
+      // Define the colors for each category
+      var colors = {
+        chicken: '#ff0000',
+        duck: '#00ff00',
+        ostrich: '#0000ff',
+        quail: '#ffff00',
+        special: '#00ffff'
+      };
+
+      // Clear the existing chart and legend
+      d3.select('#chart3').html('');
+      d3.select('#legend').html('');
+
+      // Set up the SVG dimensions and radius
+      var width = 400;
+      var height = 400;
+      var radius = Math.min(width, height) / 2;
+
+      // Create the chart SVG element
+      var svg = d3.select('#chart3')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+      // Create the pie layout
+      var pie = d3.pie()
+        .value(function (d) { return d.count; })
+        .sort(null);
+
+      // Create the arc generator
+      var arc = d3.arc()
+        .innerRadius(radius * 0.5)
+        .outerRadius(radius * 0.8);
+
+      // Generate the pie slices
+      var slices = svg.selectAll('path')
+        .data(pie(categoryData))
+        .enter()
+        .append('path')
+        .attr('d', arc)
+        .attr('fill', function (d) { return colors[d.data.category]; });
+
+      // Add text labels
+      slices.append('text')
+        .attr('transform', function (d) { return 'translate(' + arc.centroid(d) + ')'; })
+        .attr('dy', '0.35em')
+        .text(function (d) { return d.data.category; });
+
+      // Create a legend container
+      var legend = d3.select('#legend')
+        .append('svg')
+        .attr('width', 150)
+        .attr('height', 150)
+        .append('g')
+        .attr('transform', 'translate(20,20)');
+
+      // Add colored squares to the legend
+      legend.selectAll('rect')
+        .data(Object.keys(colors))
+        .enter()
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', function (d, i) { return i * 25; })
+        .attr('width', 20)
+        .attr('height', 20)
+        .style('fill', function (d) { return colors[d]; });
+
+      // Add text labels to the legend
+      legend.selectAll('text')
+        .data(Object.keys(colors))
+        .enter()
+        .append('text')
+        .attr('x', 30)
+        .attr('y', function (d, i) { return i * 25 + 15; })
+        .text(function (d) { return d; });
     }
-  </script>
+  },
+  error: function (error) {
+    console.log('Error fetching order data:', error);
+  }
+});
+
+
+
+</script>
+
 </body>
 </html>
