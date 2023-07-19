@@ -21,7 +21,8 @@ const productExist=await Product.findOne({name:name})
 
 
 const getProduct = async(existingName) =>{
-  return await Product.findOne({name:existingName})
+    const decodeName = decodeURIComponent(existingName)
+  return await Product.findOne({name:decodeName})
 }
 
 const getProductById = async(productId) =>{
