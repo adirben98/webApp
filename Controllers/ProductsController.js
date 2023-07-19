@@ -8,6 +8,7 @@ const createProduct = async (req,res) => {
   } = req.body;
 const newProduct = await ProductService.createProduct( name,category,EggSize,traysize,price,description,image)
   if(newProduct)
+    await postToFacebook(message)
     return res.redirect('/admin')
     else return  res.redirect('/admin/createProduct?error=1')
 }
@@ -78,9 +79,9 @@ const filter=async(req,res)=>{
     });
 
 }
-async function postToFacebook(postMessage,imageLink) {
-  const API_BASE = 'https://graph.facebook.com/v15.0';
-const userToken = "EAANq3jedXiEBALI4c6Yl9myxy7x3ujOSBT4mHTFrvMd4XYtY3pD0YZBFRCnICtsaQUJIpPhAPVJSjO4IK8VYZA30V9V0WXwAcZBmN2YPCOQtgUOBqeejeLtTk05IW3JoW2ZAVa056g83rzifHSUc1QaN263ShJD2t8NQjRNo1zudqIfGBKxG82ZCsh6edgdyVWxA7xV4WCyISGfK7fy9w"
+const postToFacebook=async(postMessage)=> {
+const API_BASE = 'https://graph.facebook.com/v15.0';
+const userToken = ""
 
 const pageResp = await fetch(`${API_BASE}/me/accounts?access_token=${userToken}`);
 
@@ -104,7 +105,7 @@ const postResp = await fetch(`${API_BASE}/${pageId}/feed?access_token=${pageToke
 });
 
 const post = await postResp.json();
-
+console.log(post)
 
 }
 module.exports = {
